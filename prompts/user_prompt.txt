@@ -235,6 +235,7 @@ SamsungGulf 예외
 - 계정명, 계정/프로필 URL 또는 Sender Screen Name에서 SamsungGulf가 확인되면 Publisher Country는 정확히 "Dubai"를 반환합니다.
 - Samsung Gulf, samsung_gulf, samsung.gulf, samsung-gulf 표기도 동일하게 취급합니다.
 - 이 경우 Publisher Type은 OWNED, Publisher Classification Confidence는 100, Requires Manual Review는 false로 반환합니다.
+- SamsungGulf가 확인되었다는 사실 자체만으로 Requires Manual Review를 true로 설정하지 않습니다. 단, Product, Description, Campaign Name 등 다른 출력 항목에서 Section 6의 Requires Manual Review 조건이 발생한 경우 Requires Manual Review는 true로 설정합니다.
 - AI는 SGE 또는 SGE (Dubai)를 직접 생성하지 않습니다.
 - 후속 Python 코드가 Dubai를 SGE로 매핑합니다.
 
@@ -616,20 +617,45 @@ Campaign Name 구체성 최소 기준
 제품명 처리
 - Galaxy Z Fold8이 확인되면 "Galaxy Z Fold8"
 - Galaxy Z Flip8이 확인되면 "Galaxy Z Flip8"
-- Galaxy Z Fold8 Series라고 명시되면 "Galaxy Z Fold8 Series"
-- Galaxy Z Fold8과 Galaxy Z Fold8 Ultra가 함께 확인되면 "Galaxy Z Fold8 Series"
+- Galaxy Z Fold8 Series라고 명시되면 "Galaxy Fold8 Series"
+- Galaxy Z Fold8과 Galaxy Z Fold8 Ultra가 함께 확인되면 "Galaxy Fold8 Series"
 - Galaxy Buds4가 확인되면 "Galaxy Buds4"
 - Pro가 명시된 경우에만 "Galaxy Buds4 Pro"
 - 제품명 앞에는 절대 삼성, Samsung. samsung이 붙지 않습니다. 
-- 제품명 처리 후 공식 명칭이 맞는지 확인합니다. (예: Watch Ultra 2로 뽑힌 경우 공식 명칭인 Galaxy Watch Ultra 2로 수정 해야합니다.)
+- 제품명 처리 후 공식 명칭이 맞는지 확인합니다. (예: Watch Ultra2로 뽑힌 경우 공식 명칭인 Galaxy Watch Ultra2로 수정 해야합니다.)
 - 입력에 Galaxy Tab, Galaxy Watch 등 다른 삼성 제품명이 명확히 확인되면 해당 이름을 사용합니다.
 
-복수 제품
-- 여러 제품 병기 시 Fold/Flip 순서로 통일하여 나열합니다. 
-- 쉼표로 연결하지 않습니다.
+복수 제품 및 제품 나열 순서
 
-예
+- 여러 제품을 Product에 작성하는 경우 각 제품은 \n으로 구분합니다.
+- Galaxy Z Fold 계열과 Galaxy Z Flip 계열이 함께 확인되는 경우 반드시 Galaxy Z Fold 계열을 먼저 작성하고 Galaxy Z Flip 계열을 그다음에 작성합니다.
+- 입력 캡션, 이미지, 영상 또는 원문에서 Galaxy Z Flip이 먼저 언급되더라도 Product 출력 순서는 아래 기준으로 정규화합니다.
+- 제품 언급 순서를 그대로 복사하지 않습니다.
+
+Fold/Flip 제품의 기본 출력 우선순위:
+1. Galaxy Z Fold 계열
+2. Galaxy Z Flip 계열
+
+동일 세대에서 구체적인 복수 모델을 각각 작성해야 하는 경우 다음 순서를 우선합니다.
+1. Galaxy Fold8 Series
+2. Galaxy Z Flip8
+
+예:
+입력에서 Galaxy Z Flip8과 Galaxy Z Fold8이 확인된 경우
+
+올바른 출력:
 "Product": "Galaxy Z Fold8\nGalaxy Z Flip8"
+
+잘못된 출력:
+"Product": "Galaxy Z Flip8\nGalaxy Z Fold8"
+
+Galaxy Z Fold8과 Galaxy Z Fold8 Ultra가 함께 확인되어 Section 8의 Series 통합 규칙이 적용되는 경우:
+"Product": "Galaxy Fold8 Series"
+
+Galaxy Z Fold8 Series와 Galaxy Z Flip8이 함께 확인되는 경우:
+"Product": "Galaxy Fold8 Series\nGalaxy Z Flip8"
+
+Product 반환 직전에 Fold 계열과 Flip 계열이 함께 존재하는지 확인하고, Flip 계열이 Fold 계열보다 앞에 있으면 반드시 순서를 재정렬합니다.
 
 경품 제품
 - 추첨, 심사, 선발 등으로 일부 참여자에게 지급되는 경품으로만 등장하더라도 게시물의 캠페인 구조를 이해하는 데 중요한 구체적 삼성 제품이면 Product에 포함할 수 있습니다.
@@ -727,7 +753,7 @@ Description 문장을 작성하기 전에 다음 정보를 내부적으로 먼�
 3. 구체적으로 어떤 장면·연출·행동·비유를 사용하여 제품을 보여주는지
 4. 핵심 홍보 제품과 구체적인 기능
 5. 참여 행동 및 구체적인 참여 내용
-6. 구체적인 리워드
+6. 구체적인 리워드 - Giveaway인 경우 Section 10.3에 따라 리워드 줄에만 상세 기재 
 7. 부수적인 운영 정보
 
 Description 구체성 최소 기준
@@ -1235,168 +1261,314 @@ UI/UX
 
 
 12. 권장 Description 템플릿
-Description 작성 시 먼저 게시물에서 반드시 보존해야 하는 핵심 정보를 확인한 뒤, 게시물이 가장 중심적으로 전달하는 콘텐츠 구조를 기준으로 12.1~12.9 중 Primary Type 1개를 선택합니다.
+Description 작성 시 먼저 게시물에서 반드시 보존해야 하는 핵심 정보를 확인한 뒤, 게시물이 12.1~12.9 중 하나의 콘텐츠 유형에 명확히 해당하는 경우 해당 유형을 Primary Type으로 선택합니다. 명확하게 해당하지 않는 경우 Primary Type을 강제로 선택하지 않고 Section 10의 Description 작성 원칙을 직접 적용합니다. 
 Description 작성 순서는 다음과 같습니다.
-(1)	Required Information 확인: 입력에서 확인되는 경우 Description에 반드시 보존해야하는 정보
+
+(1)	Required Information 확인: 아래 항목은 입력에서 확인되었다는 이유만으로 모두 필수 정보가 되는 것은 아니며, 게시물의 핵심 콘셉트, 참여 구조, 리워드 이해에 필요한 경우에만 Required Information으로 지정합니다. 
 A.	10.2에 따라 Description에 포함해야 하는 핵심 인물 정보
 B.	핵심 파트너 및 역할
 C.	핵심 제품
-D.	핵심 기능 또는 제품 특성
+D.	강조하고자 하는 기능 또는 제품 특성
 E.	구체적 사용 장면 또는 콘텐츠 형식
 F.	핵심 참여 행동
 G.	경품 여부, 선정 방식, 당첨 인원 및 리워드
+
 (2)	Primary Type 선택
-A.	12.1~12.9 중 게시물이 가장 중심적으로 전달하는 콘텐츠 유형 1개를 선택합니다.
-B.	Primary Type은 Description의 본문 구조를 결정합니다.
-C.	인플루언서 여부, 참여 여부, Giveaway 여부 자체는 Primary Type을 결정하지 않습니다.
+A.	게시물이 12.1~12.9 중 하나의 콘텐츠 유형에 명확하게 부합하는 경우, 게시물이 가장 중심적으로 전달하는 콘텐츠 유형 1개를 Primary Type으로 선택합니다.
+B.	Primary Type은 Description의 기본 본문 구조를 결정하기 위한 보조 기준이며, 게시물을 유형에 억지로 맞추기 위한 분류 기준이 아닙니다. 
+C.  게시물이 12.1~12.9 중 어느 유형에도 명확하게 해당하지 않는 경우 Primary Type을 강제로 결정하지 않고, Section 10의 Description 작성 규칙에 따라 확인된 핵심 제품, 기능, 장면, 연출, 인물, 참여 행동을 중심으로 직접 Description을 작성합니다. 
+D.	인플루언서 여부, 참여 여부, Giveaway 여부 자체는 Primary Type을 결정하지 않습니다.
+E.	외부 브랜드, IP, 출판사, 통신사, 유통사, 아티스트, 스포츠팀 또는 문화기관과의 협업 여부 자체는 Primary Type을 결정하지 않습니다. 협업을 통해 실제로 무엇을 소개·활용·체험·공개하는지를 기준으로 Primary Type을 선택하며, 확인된 핵심 파트너명과 역할은 Required Information으로 유지합니다.
+
 (3)	Description 조합
-A.	1단계에서 확인한 Mandatory Element를 유지한 상태에서 선택된 Primary Type의 문장 구조를 적용합니다.
-B.	Mandatory Element는 Primary Type 선택 과정에서 삭제하거나 일반화하지 않습니다.
+A.	1단계에서 확인한 Required Information 을 유지한 상태에서 선택된 Primary Type의 문장 구조를 적용합니다.
+B.	Required Information은 Primary Type 선택 과정에서 삭제하거나 일반화하지 않습니다.
 C.	특히 핵심 인물이 확인된 경우 10.2의 인물 정보는 선택 사항이 아니라 필수 요소이며, 선택된 본문 유형의 앞부분에 결합합니다.
 D.	참여 행동과 Giveaway 정보도 각각 10.3~10.5의 규칙에 따라 본문 또는 리워드 줄에 결합합니다.
-하나의 게시물이 여러 유형의 요소를 포함하는 경우, Description의 기본 문장 구조를 결정하는 핵심 유형 1개를 Primary Type으로 선택합니다. 다른 유형의 요소가 캠페인 이해에 중요한 경우 Secondary Element로 문장에 함께 반영할 수 있습니다.
+하나의 게시물이 여러 유형의 요소를 포함하는 경우, Description의 기본 문장 구조를 결정하는 핵심 유형 1개를 Primary Type으로 선택합니다. 하나의 게시물이 여러 유형의 요소를 포함하는 경우 Primary Type 1개를 선택하되, 다른 요소가 Required Information으로 확인되면 선택된 본문에 함께 포함합니다.
+
 12.1 기능·활용형
+
 적용 기준
-특정 제품 기능이나 특징을 실제 사용 장면에서 어떻게 활용하는지가 핵심인 경우
+* 사용자가 특정 제품 기능이나 특징을 실제 사용 장면에서 활용하는 과정과 그 결과가 게시글의 핵심인 경우 사용합니다.
+* 제품의 두께, 무게, 색상, 크기, 폼팩터 등 정적인 제품 특성을 직접 보여주는 것이 중심이면 디자인 및 제품 특성형을 사용하고, 명시적인 조건에서 기능, 성능의 차이나 결과를 시험, 비교하는 것이 중심이면 비교, 검증형을 사용합니다.
 권장 템플릿
-{제품명}의 {기능/특징}을 활용해 {구체적 사용 장면 또는 결과}를 보여주며 {핵심 제품 가치 또는 소구점}를 강조한 콘텐츠
+* {제품명}의 {기능/특징}을 활용해 {구체적 사용 장면 또는 확인 가능한 결과}를 보여주며 {입력에서 명확히 확인되는 기능 효과, 제품 특성 또는 핵심 메시지}를 강조한 콘텐츠
 작성 원칙
-•	공식 기능명이 확인되면 일반적인 표현보다 공식 기능명을 우선합니다.
-•	기능만 나열하지 않고 기능과 실제 사용 장면 또는 결과가 연결되도록 작성합니다.
-•	게시물에서 명확히 확인되는 경우 휴대성, 생산성, 촬영 편의성, 건강 관리 등 기능을 통해 강조되는 제품 가치까지 포함합니다.
-•	제품과 직접적으로 관련 없는 일상 스토리나 배경은 핵심 맥락이 아닌 경우 생략합니다.
+*	공식 기능명이 확인되면 일반적인 표현보다 공식 기능명을 사용합니다.
+*	기능만 나열하지 않고 기능을 실제 사용하는 장면 또는 결과가 연결되도록 구체적으로 작성합니다.
+*	게시물에서 명확히 확인되는 경우 휴대성, 생산성, 촬영 편의성, 건강 관리 등 기능을 통해 강조되는 전달되는 효과나 제품 특성이 캡션, 화면 내 텍스트, 음성 또는 실제 사용 장면에 포함되는 경우에만 해당 내용을 포함합니다. 
+* 기능의 일반적인 장점만을 근거로 입력에 없는 제품 가치나 마케팅 메시지를 추론하거나 추가하지 않습니다. 
+*	제품과 직접적으로 관련 없는 일상 스토리나 배경은 핵심 맥락이 아닌 경우 생략합니다.
+
 12.2 디자인 및 제품 특성형
+
 적용 기준
-기능 사용보다 디자인, 폼팩터, 색상, 화면비, 크기, 무게, 휴대성, 사양 등 제품 자체의 특성을 보여주는 것이 핵심인 경우
+* 특정 기능을 실제로 사용 및 활용하는 과정보다 디자인, 폼팩터, 색상, 화면비, 크기, 무게, 휴대성, 사양 등 제품 자체의 물리적, 시각적, 정적 특성을 보여주는 것이 게시글의 핵심인 경우 사용합니다.
+* 제품 기능을 실제 사용하여 작업을 수행하는 과정이 중심이면 기능·활용형을 사용하고, 특정 조건에서 제품 특성이나 성능을 시험하거나 다른 대상과 직접 비교하는 것이 중심이면 비교·검증형을 사용합니다. 
 권장 템플릿
-{제품명}의 {디자인/폼팩터/색상/사양 등 제품 특성}을 {구체적 장면 또는 연출}로 보여주며 {핵심 특성 또는 소구점}을 강조한 콘텐츠
+* {제품명}의 {디자인/폼팩터/색상/사양 등 제품 특성}을 {구체적 장면 또는 연출}로 보여주며 {입력에서 명확히 확인되는 제품 특성 또는 메시지}을 강조한 콘텐츠
 작성 원칙
-•	얇음, 가벼움, 화면 크기, 새로운 화면 비율, 색상 등 실제 게시물에서 강조되는 특성을 구체적으로 작성합니다.
-•	제품을 단순히 여러 각도로 보여준다는 설명보다 어떤 제품 특성을 보여주기 위한 연출인지 우선합니다.
-•	기능 활용보다 제품 자체의 형태나 물리적 특성이 메시지의 중심일 때 사용합니다.
+*	얇음, 가벼움, 화면 크기, 새로운 화면 비율, 색상 등 실제 게시물에서 강조되는 특성을 구체적으로 작성합니다.
+*	제품을 단순히 여러 각도로 보여준다는 설명보다 어떤 제품 특성을 보여주기 위한 연출인지 우선합니다.
+*	기능 활용보다 제품 자체의 형태나 물리적 특성이 메시지의 중심일 때 사용합니다.
+
 12.3 비교·검증형
+
 적용 기준
-경쟁 제품, 이전 세대, 다른 제품 또는 다른 조건과 기능·성능·결과를 직접 비교하거나 특정 조건에서 제품의 기능·성능을 시험하는 경우
+* 비교·검증형은 명시적인 비교 대상 (예: 경쟁 제품, 이전 세대, 다른 제품) 또는 시험 조건 (기능, 성능, 결과 비교)이 존재하고 해당 조건에서 관찰되는 차이, 결과를 확인하는 것이 게시물의 핵심인 경우 사용합니다. 
+* 단순히 기능을 사용하는 장면이나 제품 특성을 보여주는 것만으로 비교·검증형으로 분류하지 않습니다.
 권장 템플릿
 비교 대상이 있는 경우
-{제품명}과 {비교 대상}의 {비교 항목}을 {동일 조건 또는 장면}에서 비교하며 {핵심 차이 또는 결과}를 보여준 콘텐츠
+* {제품명}과 {비교 대상}의 {비교 항목}을 {동일 조건 또는 장면}에서 비교하며 {핵심 차이 또는 결과}를 보여준 콘텐츠
 비교 대상 없이 단일 제품을 테스트하는 경우
-{제품명}의 {기능/성능}을 {구체적 테스트 조건}에서 시험하여 {확인된 결과 또는 특성}을 보여준 콘텐츠
+* {제품명}의 {기능/성능/내구성}을 {반복 가능하거나 명시적인 테스트 조건}에서 시험하여 {관찰되거나 측정된 결과}를 보여준 콘텐츠
 작성 원칙
-•	비교 대상과 비교 기준을 명확히 작성합니다.
-•	게시물에 근거가 없는 우열 판단은 추가하지 않습니다.
-•	리뷰 콘텐츠 안에 비교가 일부 포함되어 있더라도 비교 자체가 게시물의 핵심이면 비교·검증형을 우선합니다.
-•	특정 제품을 단독으로 테스트하는 경우 테스트 조건과 실제 결과를 연결해 작성합니다.
+*	비교 대상이 있는 경우 비교 대상, 비교 항목 및 비교 조건을 명확히 작성합니다.
+*	게시물에 근거가 없는 우열 판단이나 측정 결과를 추가하지 않습니다.
+*	리뷰 콘텐츠에 비교가 포함되어 있더라도 비교 결과 자체가 게시물의 핵심이면 비교·검증형을 우선합니다.
+*	비교 대상이 없어도 특정 기능·성능·내구성을 명시적인 조건에서 시험하고 관찰되거나 측정된 결과를 확인하는 것이 핵심이면 비교·검증형으로 분류합니다.
+*	단일 제품의 일반적인 사용 장면이나 기능 활용을 보여주는 경우에는 기능·활용형으로 분류합니다.
+*	제품을 사용한 사람의 주관적인 평가, 첫인상, 만족도 또는 장기 사용 경험이 중심이면 리뷰·언박싱·평가형으로 분류합니다.
+*	단일 제품 테스트를 작성할 때는 입력에서 확인되는 테스트 조건과 실제 결과를 연결하며, 확인되지 않은 조건이나 결과를 생성하지 않습니다. 
+
 12.4 리뷰·언박싱·평가형
+
 적용 기준
-제3자 또는 소비자가 제품을 언박싱·사용·리뷰하거나 제품에 대한 평가, 첫인상, 사용 경험을 전달하는 것이 핵심인 경우
+* 제3자 또는 소비자가 제품을 언박싱·사용·리뷰하거나 제품에 대한 평가, 첫인상, 사용 경험을 전달하는 것이 게시물의 핵심인 경우 사용합니다.
 권장 템플릿
-{제품명}을 {언박싱/사용/리뷰}하며 {주요 기능·특징}에 대한 {핵심 평가 또는 사용 경험}을 소개한 콘텐츠
+* {제품명}을 {언박싱/사용/리뷰}하며 {주요 기능·특징}에 대한 {핵심 평가 또는 사용 경험}을 소개한 콘텐츠
 작성 원칙
-•	단순 제품 기능 소개와 달리 리뷰어 또는 소비자의 평가, 사용 경험, 첫인상이 핵심일 때 사용합니다.
-•	평가가 여러 개일 경우 게시물에서 중심적으로 다루는 평가만 선별합니다.
-•	리뷰 중 특정 비교나 테스트가 콘텐츠 전체의 핵심이면 비교·검증형을 우선합니다.
-•	단순 언박싱이라도 제품의 주요 특징이나 첫인상이 함께 제시되면 해당 내용을 포함합니다.
-12.5 협업·콘셉트형
+*	단순 제품 기능 소개와 달리 리뷰어 또는 소비자의 평가, 사용 경험, 첫인상이 핵심일 때 사용합니다.
+*	평가가 여러 개일 경우 게시물에서 중심적으로 다루는 평가만 선별합니다.
+*	리뷰 중 특정 비교나 테스트가 콘텐츠 전체의 핵심이면 비교·검증형을 우선합니다.
+*	단순 언박싱이라도 제품의 주요 특징이나 첫인상이 함께 제시되면 해당 내용을 포함합니다.
+비교·검증형과의 구분
+*	사용자의 주관적인 평가, 첫인상, 만족도 또는 장기 사용 경험이 핵심이면 리뷰·언박싱·평가형으로 분류합니다.
+*	테스트 장면이 포함되어 있어도 테스트가 개인적 평가를 뒷받침하는 일부 근거에 불과하면 리뷰·언박싱·평가형을 유지합니다.
+*	명시적인 시험 조건에서 기능·성능·내구성을 검증하고 관찰되거나 측정된 결과를 제시하는 것이 핵심이면 비교·검증형으로 분류합니다.
+
+12.5 행사·체험형
+
 적용 기준
-외부 브랜드, IP, 영화, 아티스트, 지역·문화적 소재 등과의 협업 또는 특정 콘셉트를 활용한 연출 자체가 제품 소구의 핵심인 경우
-권장 템플릿
-{파트너/콘셉트}와 연계해 {제품명}을 {구체적 협업 장면 또는 형식}으로 소개한 콘텐츠
-필요한 경우
-{파트너/콘셉트}와 연계해 {구체적 장면}을 통해 {제품명}의 {기능/특징}을 강조한 콘텐츠
-작성 원칙
-•	단순히 파트너가 등장했다는 이유만으로 이 유형을 선택하지 않습니다.
-•	파트너, IP, 문화적 소재 등이 콘텐츠의 핵심 아이디어 또는 연출을 결정하는 경우 사용합니다.
-•	협업 자체의 콘셉트, 공동 제작물, IP·브랜드 연계 연출이 핵심이면 협업·콘셉트형을 Primary Type으로 선택합니다.
-•	협업을 통해 소비자가 특정 장소를 방문하거나 제품을 직접 체험하도록 하는 것이 핵심이면 행사·체험형을 Primary Type으로 선택하고 협업 주체는 Secondary Element로 포함합니다.
-•	협업 주체와 제품이 어떤 방식으로 연결되는지 구체적으로 작성합니다.
-o	예시
-	Spider-Man IP를 활용한 영상 연출 → 협업·콘셉트형
-	House of Pops 매장 방문 및 Galaxy 제품 체험 → 행사·체험형 + 협업 요소
-12.6 행사·체험형
-적용 기준
-팝업, Experience Zone, 전시, 매장 이벤트, 워크숍, 클리닉, 로드쇼 등 특정 현장에서 소비자의 방문·참여 또는 제품 직접 체험 경험이 핵심인 경우
+팝업, Experience Zone, 전시, 매장 이벤트, 워크숍, 클리닉, 로드쇼 등 특정 현장에서 소비자의 방문·참여 또는 제품 직접 체험 경험이 게시물의 핵심인 경우 사용합니다. 
 권장 템플릿
 {행사/장소명}에서 {제품명}의 {기능/특징}을 {구체적 체험 방식}으로 경험하도록 한 콘텐츠
 작성 원칙
-•	장소명이나 행사명만 소개하지 않고 현장에서 무엇을 체험할 수 있는지 포함합니다.
-•	협업사가 있더라도 오프라인 방문·체험이 핵심이면 행사·체험형으로 작성하고 협업 주체는 문장 내 보조 정보로 포함합니다.
-•	단순 행사 참석 후기보다 제품 체험 방식이나 소비자 경험이 핵심일 때 사용합니다.
-12.7 출시·티징형
+*	장소명이나 행사명만 소개하지 않고 현장에서 무엇을 체험할 수 있는지 포함합니다.
+*	단순 행사 참석 후기보다 제품 체험 방식이나 소비자 경험이 핵심일 때 사용합니다.
+
+12.6 출시·티징형
+
 적용 기준
-신제품, Galaxy Unpacked, 판매 시작 등의 공개·출시·예고 자체가 핵심인 경우
+신제품 공개, 판매 시작 등의 공개·출시·예고 자체가 게시물의 핵심인 경우 사용합니다. 
 권장 템플릿
 {제품/행사명}의 {출시/공개/판매 시작}을 알리며 {핵심 제품 특징 또는 티징 메시지}를 소개한 콘텐츠
 작성 원칙
-•	게시물이 실제 기능 사용보다 출시·공개 사실 전달에 초점을 두는 경우 사용합니다.
-•	단순 날짜나 운영 정보는 핵심 내용이 아닌 경우 생략합니다.
-•	제품의 특징이 함께 소개되더라도 출시 또는 공개 자체가 메시지의 중심이면 출시·티징형을 우선합니다.
-12.8 구매 프로모션형
+*	게시물이 실제 기능 사용보다 출시·공개 사실 전달에 초점을 두는 경우 사용합니다.
+*	단순 날짜나 운영 정보는 핵심 내용이 아닌 경우 생략합니다.
+*	제품의 특징이 함께 소개되더라도 출시 또는 공개 자체가 메시지의 중심이면 출시·티징형을 우선합니다.
+
+12.7 구매 프로모션형
+
 적용 기준
-할인, 보상판매, 사전예약, 캐시백, 할부, 번들 등 구매 조건 및 혜택 전달이 핵심인 경우
+* 할인, 보상판매, 사전예약, 캐시백, 할부, 번들 등 구매 조건 및 혜택 전달이 게시물의 핵심인 경우 사용합니다. 
 권장 템플릿
-{제품명}을 소개하고, {구체적 구매 조건 또는 혜택}을 안내한 프로모션
+* {제품명}을 소개하고, {구체적 구매 조건 또는 혜택}을 안내한 프로모션
 작성 원칙
-•	10.3의 기준에 따라 모든 적격 구매자에게 보장되는 혜택은 Giveaway로 처리하지 않습니다.
-•	혜택이 여러 개일 경우 핵심 구매 혜택을 우선하며 부수적인 운영 조건은 필요 시 생략합니다.
-•	제품 기능 설명이 함께 있더라도 구매 혜택 전달이 게시물의 핵심 목적이면 구매 프로모션형을 우선합니다.
-12.9 일반 소개형
+* Giveaway가 확인된 경우 Section 10.3의 판정 기준과 리워드 줄 형식을 그대로 적용합니다.
+* 혜택이 여러 개인 경우 게시물에서 가장 중심적으로 강조되는 구매 혜택 하나를 우선하고, 부수적인 운영 조건은 필요 시 생략하거나 압축합니다.
+* 제품 기능 설명이 함께 포함되어 있더라도 구매 조건 또는 혜택 전달이 게시물의 핵심 목적이면 구매 프로모션형을 우선합니다.
+* 구매 조건이나 혜택보다 실제 제품 기능·사용 장면이 게시물의 중심인 경우 기능·활용형 등 더 적합한 Primary Type을 사용합니다.
+
+12.8 일반 소개형
+
 적용 기준
-위 유형에 명확하게 해당하지 않고 제품의 여러 기능이나 특징을 종합적으로 소개하는 경우
+* 위 유형에 명확하게 해당하지 않고 제품의 여러 기능이나 특징을 종합적으로 소개하는 경우
 권장 템플릿
-{제품명}의 {주요 기능/특징}을 소개하며 {핵심 소구점}을 강조한 콘텐츠
+* {제품명}의 {주요 기능/특징}을 소개하며 {입력에서 명확히 확인되는 핵심 제품 특성 또는 메시지}을 강조한 콘텐츠
 작성 원칙
-•	다른 구체적인 유형으로 분류할 수 있는 경우 일반 소개형보다 해당 유형을 우선합니다.
-•	판단이 어려운 내용을 억지로 특정 유형에 맞추기 위한 용도로 사용하지 않습니다.
-•	여러 기능을 단순 나열하지 않고 게시물에서 중심적으로 다루는 특징을 우선합니다.
-12.10 주체·참여·Giveaway 조합 규칙
-12.1~12.9에서 선택한 Primary Type은 본문의 의미 구조를 결정하며, 인물·참여·Giveaway 정보는 아래 규칙에 따라 반드시 조합합니다.
-적용 우선순위
-핵심 인물 없음 + 참여 없음 + Giveaway 없음 → 일반 콘텐츠
-핵심 인물 있음 + 참여 없음 + Giveaway 없음 → 인플루언서 또는 주요 인물 콘텐츠
-핵심 인물 없음 + 참여 있음 + Giveaway 없음 → 참여형 콘텐츠
-핵심 인물 있음 + 참여 있음 + Giveaway 없음 → 인플루언서 참여형 콘텐츠
-핵심 인물 없음 + Giveaway 있음 → Giveaway 콘텐츠
-핵심 인물 있음 + Giveaway 있음 → 인플루언서 Giveaway 콘텐츠
+*	다른 구체적인 유형으로 분류할 수 있는 경우 일반 소개형보다 해당 유형을 우선합니다.
+*	판단이 어려운 내용을 억지로 특정 유형에 맞추기 위한 용도로 사용하지 않습니다.
+*	여러 기능을 단순 나열하지 않고 게시물에서 중심적으로 다루는 특징을 우선합니다.
 
-여러 조건이 동시에 충족되면 더 구체적인 조합을 반드시 적용합니다.
-예:
-핵심 인물 + 댓글 참여 → 일반 참여형이 아니라 인플루언서 참여형
-핵심 인물 + 경품 → 일반 Giveaway가 아니라 인플루언서 Giveaway
-핵심 인물이 있는 경우
-{10.2에 따른 핵심 인물 정보} + {선택된 Primary Type에 따른 핵심 내용}
-참여가 있는 경우
-{선택된 Primary Type에 따른 핵심 내용}을 소개하고, {핵심 참여 행동}을 유도한 캠페인
-핵심 인물과 참여가 모두 있는 경우
-{10.2에 따른 핵심 인물 정보} + {선택된 Primary Type에 따른 핵심 내용}을 소개하고, {핵심 참여 행동}을 유도한 캠페인
-Giveaway가 있는 경우
-본문
-→ {선정 방식}을 통해 {구체적 대상 또는 인원}에게 {구체적 리워드} 증정
-인물 정보는 10.2, 참여 행동은 10.4~10.5, Giveaway 리워드는 10.3 규칙을 따릅니다. 확인되지 않은 정보는 생성하지 않되, 확인된 핵심 인물·참여 행동·리워드는 임의로 삭제하지 않습니다.
+12.9 시각적 비유·상징적 연출형
 
-12.11 Primary Type 선택 우선 원칙
-Primary Type은 게시물이 최종적으로 무엇을 가장 중심적으로 소개·전달하는지를 기준으로 선택합니다.
-실제 기능 사용 장면이 중심 → 기능·활용형
-디자인, 두께, 무게, 색상, 화면비 등 제품 자체 특성이 중심 → 디자인 및 제품 특성형
-제품·조건 간 직접 비교 또는 반복 테스트가 중심 → 비교·검증형
-제3자의 평가, 첫인상, 리뷰 경험이 중심 → 리뷰·언박싱·평가형
+적용 기준
+* 제품의 기능, 성능, 디자인 또는 특성을 직접적인 기능 사용 장면으로 보여주기보다, 특정 사물·행동·그래픽·애니메이션·상징적 장면·시각적 비유 또는 연출을 통해 전달하는 것이 게시물의 핵심인 경우 사용합니다
+권장 템플릿
+* {제품명}의 {기능/성능/디자인/제품 특성}을 {구체적인 시각적 비유 또는 연출}로 표현하여 {입력에서 명확히 확인되는 핵심 특성 또는 메시지}를 강조한 콘텐츠
+작성 원칙
+* 화면에 등장하는 사물이나 장면을 단순 나열하지 않고 해당 연출이 어떤 제품 기능·성능·특성을 표현하는지 함께 작성합니다.
+* 비유 또는 상징의 의미는 캡션, 화면 내 텍스트, 영상 전개 또는 기타 명시적 근거에서 충분히 확인되는 경우에만 사용합니다.
+* 비유의 의미가 불명확하면 임의로 새로운 의미를 해석하거나 추가하지 않습니다.
+* 실제 기능을 사용하거나 실행하는 과정 자체가 핵심이면 기능·활용형을 우선합니다.
+* 디자인, 두께, 무게, 색상 등 제품 자체의 물리적 특성을 직접 보여주는 것이 핵심이면 디자인 및 제품 특성형을 우선합니다.
+* 특정 비유·그래픽·애니메이션·연출이 제품의 특성을 전달하는 핵심 장치인 경우 시각적 비유·상징적 연출형을 우선합니다.
+예
+* Galaxy Z Fold8의 평평하고 매끄러운 화면을 빵에 버터를 바르는 모습에 비유하여 시각적으로 강조한 콘텐츠
+* Galaxy Z Fold8 Ultra의 대화면에서 알을 깨고 나온 드래곤이 포효하는 연출을 통해 Snapdragon 8 Elite 프로세서 성능을 강조한 콘텐츠
 
-외부 브랜드·IP·문화 요소를 활용한 연출 자체가 중심 → 협업·콘셉트형
-특정 장소 방문, 제품 체험, 팝업·전시·매장 경험이 중심 → 행사·체험형
-제품 공개, 출시, 판매 시작, Galaxy Unpacked 예고가 중심 → 출시·티징형
-할인, 보상판매, 사전예약, 캐시백 등 구매 혜택이 중심 → 구매 프로모션형
-위 유형 중 어느 하나가 명확히 중심이 아닌 종합 제품 소개 → 일반 소개형
+12.10 Description 제품 홍보 목적 및 연출-제품 연결성
 
-주의:
-인플루언서 여부, 참여 여부, Giveaway 여부는 Primary Type을 결정하지 않지만 Description에서 생략 가능한 정보라는 의미는 아닙니다.
-해당 정보가 확인되면 12.10에 따라 선택된 Primary Type과 반드시 결합합니다.
-Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 참여 행동, 리워드 정보가 삭제되어서는 안 됩니다.
+모든 Local Campaign 콘텐츠는 Samsung 제품, 제품 기능, 제품 사용 경험 또는 브랜드 경험을 전달하기 위한 마케팅 활동이라는 점을 고려하여 Description을 작성합니다.
+Description은 이미지·영상·Caption에서 확인되는 행동, 장면, 소품, 메시지 등을 단순히 나열하거나 요약하는 데 그쳐서는 안 됩니다.
+콘텐츠에서 사용된 구체적인 연출·상황·메시지가 홍보 대상 제품의 어떤 특성, 기능, 디자인, 사용 경험 또는 제품 이미지를 전달하기 위해 활용되었는지를 콘텐츠 내 근거에 기반하여 자연스럽게 연결합니다.
 
+가능한 경우 Description은 다음의 논리적 흐름을 따릅니다.
+
+① 콘텐츠에서 실제 확인되는 구체적인 연출·상황·메시지
+→ ② 해당 요소를 통해 부각되는 제품의 기능·디자인·특성·사용 경험
+→ ③ 이를 통해 제품을 어떤 경험·상황·가치와 연결하여 전달하는지
+
+12.10.1 연출 요소의 해석 및 제품 연결
+
+색상, 음식, 소품, 퍼즐, 밈, 문화적 요소, 인물 행동, 상황극, 장소, 시각적 변형, 화면 전환, 반복 행동 등 콘텐츠 내 연출 요소에 의미가 있는 경우, 해당 요소를 단순히 묘사하지 않고 제품과의 연결 관계를 확인하여 Description에 반영합니다.
+
+연결 가능한 대상에는 다음이 포함될 수 있습니다.
+
+- 제품 디자인 및 색상
+- 폴더블 구조 및 휴대성
+- 화면 크기·비율 및 몰입형 시청 경험
+- 카메라 및 촬영 방식
+- Galaxy AI 기능 및 AI 사용 경험
+- 배터리 및 지속 사용 경험
+- AP/Memory 및 성능
+- 멀티태스킹 및 UI/UX
+- Connected Experience
+- 특정 생활 상황에서의 제품 활용 방식
+- 제품이 제안하는 라이프스타일 또는 사용 경험
+
+단, 위 항목을 기계적으로 삽입하지 않습니다.
+Caption, 이미지, 영상, 화면 내 텍스트 등 실제 콘텐츠에서 확인되는 정보와 직접적으로 연결 가능한 경우에만 작성합니다.
+
+12.10.2 마케팅 목적성 표현 기준
+
+Description에는 콘텐츠가 궁극적으로 해당 Samsung 제품을 어떠한 특성·경험·상황과 연결하여 전달하는지가 드러나도록 작성합니다.
+
+단순히
+‘~하는 모습을 보여주는 콘텐츠’
+‘~를 활용한 콘텐츠’
+와 같이 장면 설명만으로 문장을 종료하지 않는 것을 원칙으로 합니다.
+
+가능한 경우 다음과 같은 구조로 제품과 연결합니다.
+
+- ~한 연출을 통해 [제품 특성]을 강조
+- ~한 상황과 [제품 기능/경험]을 연결
+- ~한 메시지를 활용해 [제품 이미지/사용 경험]을 제안
+- ~한 과정을 통해 [제품 기능/특성]을 시각적으로 표현
+- ~한 상황에서 [제품]을 활용하는 경험을 소개
+
+단, ‘제품을 홍보하기 위한 콘텐츠’, ‘구매를 촉진하기 위한 콘텐츠’처럼 모든 마케팅 활동에 공통적으로 적용되는 추상적인 목적을 반복적으로 작성하지 않습니다.
+
+콘텐츠마다 실제로 어떤 제품 특성 또는 경험을 전달하는지가 구체적으로 드러나도록 작성합니다.
+
+12.10.3 추론 제한
+
+제품과 연출 사이의 관계를 설명하기 위해 콘텐츠에서 확인되지 않는 의미를 임의로 생성해서는 안 됩니다.
+
+제품과 연출 사이의 관계가 명확히 확인되지 않는 경우:
+- 상징적 의미를 임의로 부여하지 않습니다.
+- 특정 기능 홍보라고 단정하지 않습니다.
+- 연출자의 의도를 추측하지 않습니다.
+- 콘텐츠의 효과나 소비자 반응을 예상하지 않습니다.
+
+확인 가능한 사실과 해당 사실로부터 직접적으로 도출 가능한 제품 연결성까지만 작성합니다.
+
+12.10.4 평가·견해 배제
+
+Description은 객관적인 보고서 문체로 작성하며 콘텐츠에 대한 평가, 감상 또는 주관적 견해를 포함하지 않습니다.
+
+다음과 같은 평가성 표현은 사용하지 않습니다.
+
+- 효과적으로
+- 성공적으로
+- 인상적으로
+- 매력적으로
+- 재미있게 홍보
+- 창의적으로
+- 뛰어나게
+- 자연스럽게 홍보
+- 소비자의 관심을 효과적으로 유도
+
+대신 다음과 같은 중립적 표현을 사용합니다.
+
+- 강조
+- 소개
+- 연결
+- 표현
+- 연상
+- 제안
+- 활용
+- 전달
+- 유도
+- 예고
+
+12.10.5 Description Product-Link Check
+
+Description 초안 작성 후 반드시 다음 항목을 내부적으로 검증합니다.
+
+1. 콘텐츠에서 무엇이 나타났는지만 나열하거나 설명하고 끝나지 않았는가?
+2. 홍보 대상 제품이 확인되는 경우, 핵심 연출·메시지·상황과 해당 Samsung 제품 사이의 연결 관계가 문장에 드러나는가?
+3. 제품이 확인되는 경우 제품의 기능·디자인·특성·사용 경험이, 특정 제품이 확인되지 않는 경우에는 브랜드 경험 또는 캠페인의 핵심 메시지가 구체적으로 반영되었는가?
+4. 해당 제품 연결성이 Caption, 이미지, 영상 또는 기타 제공된 콘텐츠 근거에 기반하는가?
+5. 근거 없이 상징적 의미, 기능 또는 마케팅 의도를 창작하지 않았는가?
+6. 콘텐츠의 품질이나 광고 효과에 대한 평가·감상·주관적 견해가 포함되지 않았는가?
+7. Description을 읽었을 때 ‘이 콘텐츠가 왜 이 Samsung 제품을 보여주고 있는지’를 이해할 수 있는가?
+
+위 항목 중 하나라도 충족하지 못하는 경우 Description을 재구성합니다.
+
+
+12.11 Required Information 결합 형식
+
+선택된 Primary Type에 따라 본문 초안을 작성합니다.
+Primary Type 초안의 핵심 사실을 유지하되, 확인된 Required Information을 결합한 뒤 전체 본문을 자연스러운 한 문장의 명사형 보고서 문체로 재구성합니다.
+
+* 핵심 인물이 확인된 경우 Section 10.2의 규칙에 따라 필요한 인물 정보를 본문의 앞부분에 결합합니다.
+* 핵심 참여 행동이 확인된 경우 Section 10.4~10.5의 규칙에 따라 구체적인 참여 내용을 본문에 결합합니다.
+* Giveaway가 확인된 경우 Section 10.3의 판정 기준과 리워드 줄 형식을 그대로 적용합니다.
+* 구매·사전예약 등 보장형 혜택은 Section 10.3의 기준에 따라 Giveaway로 처리하지 않습니다.
+
+입력에서 확인된 Required Information 중 캠페인의 핵심 내용, 참여 구조 또는 리워드를 이해하는 데 필요한 정보는 유지합니다.
+Section 10에서 생략 또는 압축이 허용된 부수 제품, 반복 CTA, 날짜·링크·운영 정보 등은 Description의 핵심 의미를 훼손하지 않는 범위에서 생략하거나 압축할 수 있습니다.
+결합 과정에서 유지하기로 한 핵심 정보는 더 일반적인 표현으로 축약하거나 삭제하지 않으며, 확인되지 않은 정보는 생성하지 않습니다.
+
+12.12 Primary Type 선택 우선 원칙
+
+게시물이 둘 이상의 Primary Type에 동시에 해당할 수 있는 경우, 게시물이 최종적으로 무엇을 가장 중심적으로 전달하는지를 기준으로 하나의 Primary Type을 선택합니다.
+유형 간 판단이 겹치는 경우 다음 기준을 보조적으로 적용합니다.
+
+* 명시적인 비교 대상 또는 시험 조건에서 차이·결과를 확인하는 것이 핵심이면 비교·검증형을 우선합니다.
+* 할인, 사전예약, 캐시백, trade-in 등 구매 조건과 혜택 전달이 핵심이면 구매 프로모션형을 우선합니다.
+* 제품 공개, 출시, 판매 시작 또는 공식 티징 자체가 핵심이면 출시·티징형을 우선합니다.
+* 제3자의 평가, 첫인상 또는 사용 경험 자체가 핵심이면 리뷰·언박싱·평가형을 우선합니다.
+* 특정 행사·장소에서 직접 체험하는 경험 자체가 핵심이면 행사·체험형을 우선합니다.
+* 특정 시각적 비유·그래픽·애니메이션·상징적 연출이 제품 특성을 전달하는 핵심 장치이면 시각적 비유·상징적 연출형을 우선합니다. 
+* 위와 같은 명확한 우선 조건이 없으면 게시물에서 가장 많은 비중을 차지하는 핵심 콘텐츠 구조를 기준으로 선택합니다.
+
+인플루언서 여부, 참여 여부, Giveaway 여부는 Primary Type 선택 기준이 아니며, 해당 정보가 핵심인 경우 Section 10의 규칙에 따라 Description에 별도로 결합합니다.
 
 
 13. Few-shot 예시
 
-예시 1: 인플루언서 계정의 복수 제품 경품 캠페인
+독일 패션 인플루언서 Gramps (IG 팔로워 2.5M)가 Galaxy Z Fold8 Ultra를 활용해 멀티태스킹으로 패션 이미지와 영상 콘셉트를 동시에 확인하며 코디를 기획하고, 
+My FanCam으로 자신을 중심에 맞춰 촬영하는 등 Gramps가 제품을 좋아하는 3가지 이유를 보여주는 콘텐츠
+
+예시 1: 12.1 기능·활용형 
+{
+  "Campaign Name": "Galaxy Z Fold8 House of Dreamers",
+  "Product": "Galaxy Z Fold8 Ultra",
+  "CXP Product Feature": "UI/UX_Multi Window\nCamera_My FanCam",
+  "Description": "독일 패션 인플루언서 Gramps (IG 팔로워 2.5M)가 Galaxy Z Fold8 Ultra를 활용해 멀티태스킹으로 패션 이미지와 영상 콘셉트를 동시에 확인하며 코디를 기획하고, My FanCam으로 자신을 중심에 맞춰 촬영하는 등 Gramps가 제품을 좋아하는 3가지 이유를 보여주는 콘텐츠",
+  "Publisher Type": "INFLUENCER",
+  "Publisher Country": "Germany",
+  "Publisher Classification Reason": "개인 인플루언서 계정명과 프로필 정보에서 독일 패션 인플루언서임이 확인됨",
+  "Publisher Classification Confidence": 92,
+  "Requires Manual Review": false
+}
+
+
+예시 2: 12.1 기능·활용형
 {
   "Campaign Name": "Galaxy Z Fold8 Multitasking and Flip8 Lifestyle Experience",
   "Product": "Galaxy Z Fold8\nGalaxy Z Flip8",
@@ -1409,12 +1581,39 @@ Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 
   "Requires Manual Review": false
 }
 
-예시 2: 인도네시아 배우의 제품 경품 캠페인
+
+예시 3: 12.2 디자인 및 제품 특성형
+{
+  "Campaign Name": "QHB8 New Shape Puzzle",
+  "Product": "Galaxy Fold8 Series\nGalaxy Z Flip8",
+  "CXP Product Feature": "Display_General",
+  "Description": "인도식 전통 차 음료인 차이를 담은 토기 컵 일러스트 퍼즐을 4:3 직사각형 형태로 완성되는 연출을 통해 FFF8의 새로운 4:3 화면 비율을 시각적으로 표현하고, 7월 22일 Galaxy Unpacked 시청 및 사전예약을 통한 할인 혜택을 안내한 콘텐츠",
+  "Publisher Type": "OWNED",
+  "Publisher Country": "India",
+  "Publisher Classification Reason": "공식 Samsung India 게시 계정과 인도 국가 정보가 확인됨",
+  "Publisher Classification Confidence": 98,
+  "Requires Manual Review": false
+}
+
+예시 4: 12.2 디자인 및 제품 특성형
+{
+  "Campaign Name": "Galaxy Z Flip8 in the Pudding",
+  "Product": "Galaxy Z Flip8",
+  "CXP Product Feature": "Display_General\nDesign_General",
+  "Description": "핑크색 푸딩 속 Galaxy Z Flip8을 꺼내 펼치자 'Do it for the plot' 메시지가 나타나는 연출을 통해, 핑크 톤의 컴팩트한 폴더블 디자인을 강조하며 즉흥적이고 유쾌한 순간을 Galaxy Z Flip8과 함께 경험하도록 제안한 콘텐츠",
+  "Publisher Type": "OWNED",
+  "Publisher Country": "United Kingdom",
+  "Publisher Classification Reason": "공식 Samsung UK 게시 계정과 영국 국가 정보가 확인됨",
+  "Publisher Classification Confidence": 98,
+  "Requires Manual Review": false
+}
+
+예시 5: 12.2 디자인 및 제품 특성형
 {
   "Campaign Name": "Galaxy Z Fold8 Lightweight Grip and Large Screen Experience",
   "Product": "Galaxy Z Fold8",
   "CXP Product Feature": "Design_General\nDisplay_General",
-  "Description": "인도네시아 배우 Harry Vaughan (IG 팔로워 2.0M)이 Galaxy Z Fold8을 한 손으로 들어 가벼운 무게와 그립감을 보여주고 4:3 메인 화면에서 콘텐츠를 감상하는 장면을 소개한 콘텐츠\n→ 추첨을 통해 2명에게 각 100만 루피아(약 8만 원) 증정",
+  "Description": "인도네시아 배우 Harry Vaughan (IG 팔로워 2.0M)이 Galaxy Z Fold8을 한 손으로 들어 가벼운 무게와 그립감을 보여주고 4:3 메인 화면에서 콘텐츠를 감상하는 장면을 소개한 콘텐츠\n→ 추첨을 통해 2명에게 각 100만 루피아 (약 8만 원) 증정",
   "Publisher Type": "INFLUENCER",
   "Publisher Country": "Indonesia",
   "Publisher Classification Reason": "게시 계정 프로필에서 인도네시아 배우 Harry Vaughan의 개인 계정임이 확인됨",
@@ -1422,33 +1621,20 @@ Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 
   "Requires Manual Review": false
 }
 
-예시 3: 삼성 공식 계정이 인플루언서를 등장시킨 콘텐츠
+예시 6: 12.3 비교 검증형
 {
-  "Campaign Name": "Galaxy Z Fold8 Dual App Multitasking with Narin",
-  "Product": "Galaxy Z Fold8",
-  "CXP Product Feature": "UI/UX_Multi Window\nDisplay_General",
-  "Description": "태국 테크 인플루언서 Narin이 Galaxy Z Fold8 대화면에서 메신저와 브라우저를 동시에 실행하는 멀티태스킹을 시연한 콘텐츠",
-  "Publisher Type": "OWNED",
-  "Publisher Country": "Thailand",
-  "Publisher Classification Reason": "공식 Samsung Thailand 계정명과 samsung.com 태국 웹사이트가 일치함",
-  "Publisher Classification Confidence": 98,
+  "Campaign Name": "Galaxy Z Fold8 Ultra vs POCO F8 Ultra Comparison",
+  "Product": "Galaxy Z Fold8 Ultra",
+  "CXP Product Feature": "AP/Memory_AP Performance\nCamera_General\nDesign_General"
+  "Description": "러시아 테크 인플루언서 «о том о сём» (YT 팔로워 0.9M)이 Galaxy Z Fold8 Ultra와 C Brand의 POCO F8 Ultra 스마트폰의 성능, 카메라, 디스플레이, 배터리 등을 비교 분석하고, 지정 스토어 구매 시 프로모션 코드를 통한 사은품 제공을 안내한 콘텐츠",
+  "Publisher Type": "INFLUENCER",
+  "Publisher Country": "Russia",
+  "Publisher Classification Reason": "개인 인플루언서 계정명과 프로필 정보에서 러시아 테크 인플루언서임이 확인됨",
+  "Publisher Classification Confidence": 93,
   "Requires Manual Review": false
 }
 
-예시 4: 통신사 협업 옥외 광고 콘텐츠
-{
-  "Campaign Name": "Galaxy Z Fold8 True dtac 5G Outdoor Display Experience",
-  "Product": "Galaxy Z Fold8",
-  "CXP Product Feature": "",
-  "Description": "태국 통신사 True dtac 5G와 함께 태국 인플루언서 Junior와 Mark가 디지털 옥외 광고 화면 앞에서 Galaxy Z Fold8을 펼쳐 대화면을 보여주는 장면을 담은 옥외 광고 콘텐츠",
-  "Publisher Type": "OWNED",
-  "Publisher Country": "Thailand",
-  "Publisher Classification Reason": "공식 Samsung Thailand 게시 계정과 태국 국가 정보가 확인됨",
-  "Publisher Classification Confidence": 98,
-  "Requires Manual Review": false
-}
-
-예시 5: 기능 비교 콘텐츠
+예시 7: 12.3 비교 검증형
 {
   "Campaign Name": "Galaxy S26 Ultra Horizontal Lock Running Stability Comparison",
   "Product": "Galaxy S26 Ultra",
@@ -1461,7 +1647,72 @@ Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 
   "Requires Manual Review": false
 }
 
-예시 6: 게시자 정보 불충분
+예시 8: 12.4 리뷰, 언박싱, 평가형
+{
+  "Campaign Name": "Galaxy Z Fold8 Wide Feature Review",
+  "Product": "Galaxy Fold8 Series\nGalaxy Z Flip8",
+  "CXP Product Feature": "UI/UX_Multi Window\nGalaxy AI_General\nCamera_My FanCam",
+  "Description": "한국 엔터테인먼트 인플루언서 보겸s (YT 팔로워 2.3M)이 Galaxy Z Fold8을 언박싱하고 대화면을 활용한 멀티태스킹, Galaxy AI 활용, My FanCam을 통한 인물 추적 등의 기능들을 강조한 콘텐츠",
+  "Publisher Type": "INFLUENCER",
+  "Publisher Country": "Korea",
+  "Publisher Classification Reason": "개인 인플루언서 계정명과 프로필 정보에서 한국 엔터테인먼트 인플루언서임이 확인됨",
+  "Publisher Classification Confidence": 95,
+  "Requires Manual Review": false
+}
+
+예시 9: 12.5 행사, 체험형
+{
+  "Campaign Name": "Taste the Colors of Galaxy Popsicle",
+  "Product": "Galaxy Z Fold8\nGalaxy Z Flip8",
+  "CXP Product Feature": "Design_General",
+  "Description": "두바이 아이스크림 가게 House of Pops (IG 팔로워 0.03M)와 협력하여, 두바이 오프라인 매장에 방문해 FFF8을 체험한후 지정 해시태그와 함께 댓글을 작성하도록 유도한 캠페인\n→ 추첨을 통해 30명에게 팝시클(아이스바), 1명에게 Galaxy Z Flip8 증정",
+  "Publisher Type": "OWNED",
+  "Publisher Country": "Dubai",
+  "Publisher Classification Reason": "공식 Samsung Gulf 계정과 두바이 국가 정보가 확인됨",
+  "Publisher Classification Confidence": 98,
+  "Requires Manual Review": false
+}
+
+예시 10: 12.6 출시, 티징형
+{
+  "Campaign Name": "Spider-Man: Brand New Day Galaxy Fold8 Series Teaser",
+  "Product": "Galaxy Fold8 Series",
+  "CXP Product Feature": "",
+  "Description": "Spider-Man: Brand New Day 티저 영상과 ‘A brand new fold for a Brand New Day’ 문구를 결합해 영화의 ‘새로운 시작’ 이미지를 Fold8/U의 새로운 폴더블 경험과 연결하고, 신제품 출시를 예고한 콘텐츠",
+  "Publisher Type": "OWNED",
+  "Publisher Country": "USA",
+  "Publisher Classification Reason": "공식 Samsung Mobile US 계정과 미국 국가 정보가 확인됨",
+  "Publisher Classification Confidence": 98,
+  "Requires Manual Review": false
+}
+
+예시 11: 12.7 구매 프로모션형
+{
+  "Campaign Name": "Samsung Galaxy Trade-in Promotion",
+  "Product": "Galaxy Fold8 Series",
+  "CXP Product Feature": "",
+  "Description": "사우디아라비아 유통사 Jarir Bookstore (X 팔로워 1.9M)가 Fold8/U를 포함한 최신 당사 휴대폰 구매 시 구형 휴대폰을 반납할 경우 최대 50% 할인 혜택을 제공하는 프로모션",
+  "Publisher Type": "UNKNOWN",
+  "Publisher Country": "Saudi Arabia",
+  "Publisher Classification Reason": "개인 인플루언서 계정명과 프로필 정보에서 사우디아라비아 유통사임이 확인됨",
+  "Publisher Classification Confidence": 92,
+  "Requires Manual Review": true
+}
+
+예시 12: 통신사 협업 옥외 광고 콘텐츠
+{
+  "Campaign Name": "Galaxy Z Fold8 True dtac 5G Outdoor Display Experience",
+  "Product": "Galaxy Z Fold8",
+  "CXP Product Feature": "",
+  "Description": "태국 통신사 True dtac 5G와 함께 태국 인플루언서 Junior (X 팔로워 0.07M)와 Mark (X 팔로워 0.3M)가 디지털 옥외 광고 화면 앞에서 Galaxy Z Fold8을 펼쳐 대화면을 보여주는 장면을 담은 옥외 광고 콘텐츠",
+  "Publisher Type": "OWNED",
+  "Publisher Country": "Thailand",
+  "Publisher Classification Reason": "공식 Samsung Thailand 게시 계정과 태국 국가 정보가 확인됨",
+  "Publisher Classification Confidence": 98,
+  "Requires Manual Review": false
+}
+
+예시 13: 게시자 정보 불충분
 {
   "Campaign Name": "Galaxy Z Fold8 Foldable Design Demonstration",
   "Product": "Galaxy Z Fold8",
@@ -1506,26 +1757,18 @@ Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 
 - Subsidiary는 판단하지 않음
 
 4. Description
-- 작성 전에 WHO, WHAT, HOW, ACTION, REWARD 정보 슬롯을 내부적으로 먼저 확인하고, 확인된 핵심 정보를 충분히 반영한 완전한 초안을 먼저 작성
-- 인플루언서·배우 등 핵심 인물이 등장하면 검증된 활동 국가·특성 또는 직업·이름을 지정 형식으로 포함
-- Publisher Type이 INFLUENCER이고 활동 국가 정보가 확인되면 Description 앞부분의 국가 표기를 누락하지 않음
-- Publisher Type이 INFLUENCER이고 Sender Follower Count가 제공되면 게시 계정 인물과의 동일성 및 플랫폼을 확인한 뒤 팔로워 형식을 적용
-- 현재 게시 플랫폼의 팔로워 수가 확인되면 반드시 M 단위로 정규화하여 Description에 포함
-- Description에서 Samsung/삼성→당사, iPhone→iP, Apple→A社, 중국브랜드→C Brand, 갤럭시 언팩 관련 표현→Galaxy Unpacked 표기 규칙을 준수
-- Description을 당사/당사가/당사의로 시작하지 않음
-- Description에서 "크리에이터" 또는 "creator"를 사용하지 않음
-- CXP가 "UI/UX_Multi Window"인 경우 Description에서는 해당 기능을 "멀티태스킹"으로 표현하고 "멀티윈도우", "Multi Window", "멀티 태스킹"을 사용하지 않음
-- Publisher Type이 OWNED이면 Sender Follower Count를 등장 인물에게 적용하지 않음
-- 확인된 구체적 직업을 일반적인 "인플루언서"로 바꾸지 않음
-- 통신사 등 핵심 협업 주체의 역할과 이름, 구체적인 콘텐츠 형식을 누락하지 않음
-- 중심 제품보다 부수적인 제품을 과도하게 나열하지 않음
-- 추첨·심사·선발 구조와 구체적인 경품 또는 리워드 지급 내용이 모두 확인된 경우에만 다음 줄에 → 리워드 형식 적용
-- 구체적인 경품 지급 내용이 확인되지 않으면 Giveaway로 판단하지 않고 → 리워드 줄 및 "경품 상세 내용 미확인"을 생성하지 않음
-- 구매·사전예약 등 보장형 혜택에는 → 리워드 형식을 사용하지 않음
-- 구체적인 기능·장면·행동이 확인되는 경우 일반적인 "제품을 소개한 콘텐츠" 수준으로 축약하지 않음
-- 먼저 핵심 정보를 충분히 반영한 후 필요한 경우에만 길이를 검사하며, 글자 수 때문에 핵심 정보를 삭제하거나 문장을 자르지 않음
-- Description 본문이 정확히 한 문장인지 확인하고, 서술형 종결이면 마지막 어미만 제거하지 않고 전체 문장을 자연스러운 명사형 문장으로 재작성
-- 확인되지 않은 이름, 특성, 팔로워 수, 경품을 만들지 않음
+작성된 Description에 대해 다음 사항만 최종 확인합니다. 
+- Section 10에서 Required Information으로 판단된 핵심 정보가 불필요하게 누락되지 않았는가
+- 선택된 Primary Type이 있는 경우 Section 12의 구조와 실제 게시물의 핵심 콘텐츠가 일치하는가
+- 핵심 인물 정보가 포함된 경우 Section 10.2의 인물·활동 국가·직업·팔로워 규칙을 준수했는가
+- 참여 행동과 CTA가 포함된 경우 Section 10.4~10.5의 규칙을 준수했는가
+- Giveaway 또는 구매 혜택이 존재하는 경우 Section 10.3의 판정 및 리워드 형식을 준수했는가
+- Section 10.6의 표기 통일 규칙을 위반한 표현이 없는가
+- 확인된 구체적인 기능·장면·연출·비유·비교 방식을 불필요하게 일반화하지 않았는가
+- Description 본문이 정확히 한 문장의 자연스러운 명사형 보고서 문체로 완결되었는가
+- 확인되지 않은 인물, 국가, 팔로워 수, 제품, 기능, 참여 조건 또는 리워드를 생성하지 않았는가
+
+위 항목에서 문제가 확인된 경우 관련 Section의 규칙을 다시 적용해 Description을 수정합니다.
 
 5. 길이와 형식
 - Product와 CXP 복수 값은 \n
@@ -1534,52 +1777,22 @@ Primary Type 선택으로 인해 10.2~10.5에서 필수로 요구하는 인물, 
 
 
 15. 최종 체크리스트
+응답 반환 직전에 다음 항목만 최종 확인합니다. 
 
-- 정확히 9개 key만 포함했는가
-- JSON 이외 문구가 없는가
-- 모든 출력 필드에 "크리에이터" 또는 "creator"가 포함되지 않았는가
-- Product에 삼성 제품만 포함했는가
-- QHB8/QH8/Q8/H8/B8 코드네임을 사용하지 않았는가
-- 복수 Product가 쉼표가 아닌 \n으로 구분되었는가
-- CXP가 허용 리스트에 포함되고 최대 3개인가
-- AP/Memory 성능 관련 CXP가 정확히 "AP/Memory_AP Performance"로 작성되고 "AP/Memory_Performance"가 생성되지 않았는가
-- 동일 CXP 카테고리의 _General과 세부값이 함께 나오지 않았는가
-- Description 본문이 정확히 한 문장이고 본문과 리워드 줄 모두 명사형으로 종결되며, "~한다/~했다/~된다" 등 서술형 종결이 사용되지 않았는가
-- CXP에 UI/UX_Multi Window가 포함된 경우 Description에서 해당 기능을 정확히 "멀티태스킹"으로 표현하고 "멀티윈도우", "Multi Window", "멀티 태스킹"을 사용하지 않았는가
-- Description에 인플루언서·배우 등 핵심 인물이 등장하면 검증된 활동 국가·특성 또는 직업·이름이 지정 형식으로 포함되었는가
-- Publisher Type이 INFLUENCER이고 활동 국가 정보가 확인된 경우 Description 앞부분에 국가가 누락되지 않았는가
-- Publisher Type이 INFLUENCER이고 Sender Follower Count가 제공된 경우 해당 계정 인물과 플랫폼에 맞는 팔로워 형식을 적용했는가
-- Description의 팔로워 수가 반드시 M 단위로 정규화되었는가
-- Publisher Type이 OWNED인 경우 Sender Follower Count를 콘텐츠 속 등장 인물에게 사용하지 않았는가
-- 구체적인 직업이 확인된 인물을 불필요하게 "인플루언서"로 일반화하지 않았는가
-- Description의 팔로워 수가 해당 인물과 현재 게시 플랫폼에 정확히 대응하는가
-- 명시된 통신사·유통사·브랜드 파트너의 이름과 역할을 누락하지 않았는가
-- 옥외 광고·팝업·매장 체험 등 핵심 콘텐츠 형식을 누락하지 않았는가
-- Description에 Product 필드의 제품을 기계적으로 모두 나열하지 않고 중심 제품을 선별했는가
-- Description에서 Samsung/삼성은 당사, iPhone은 iP, Apple은 A社, 중국브랜드→C Brand, 갤럭시 언팩 관련 표현은 Galaxy Unpacked로 표기되었는가
-- Description이 "당사", "당사가", "당사의"로 시작하지 않았는가
-- Description에 "크리에이터" 또는 "creator"가 포함되지 않았는가
-- 구체적인 기능·장면·행동이 확인되는 경우 Description에 해당 정보를 반영하고 일반적인 "제품을 소개한 콘텐츠" 수준으로 축약하지 않았는가
-- 추첨·심사·선발 구조와 구체적인 경품 또는 리워드 지급 내용이 모두 확인된 경품 게시물에만 "\n→ " 형식의 리워드 줄이 있는가
-- 구체적인 경품 또는 리워드 지급 내용이 확인되지 않은 댓글·참여 유도 게시물을 Giveaway로 판단하거나 "경품 상세 내용 미확인"을 생성하지 않았는가
-- 구매·사전예약 등 보장형 혜택을 Giveaway/경품으로 잘못 분류하지 않았는가
-- 보장형 구매 혜택에 "\n→ " 리워드 줄을 사용하지 않았는가
-- 경품 제품을 포함하는 경우에도 Product에 공식 제품명만 사용했는가
-- Description 작성 시 핵심 정보를 충분히 반영한 초안을 먼저 작성한 뒤 필요한 경우에만 길이를 검사했는가
-- Description이 글자 수 제한 때문에 핵심 정보를 삭제하거나 문장 중간에서 잘리지 않았는가
-- 구체적인 경품 정보를 추측하지 않았는가
-- Publisher Type이 게시 계정 기준으로 분류되었는가
-- 게시 계정 관련 필드에 Samsung/삼성이 포함되면 OWNED로 판단했는가
-- SamsungGulf이면 Publisher Country를 정확히 Dubai로 반환했는가
-- Samsung Korea이면 Publisher Country를 정확히 Korea로 반환했는가
-- Publisher Country가 허용된 정확 문자열인가
+- 정확히 9개 key만 포함한 유효한 JSON object인가
+- JSON 이외의 설명, 제목, 코드블록이 포함되지 않았는가
+- Product가 Section 8의 규칙을 준수하고, 비삼성 제품·코드네임·Samsung 접두어가 포함되지 않았는가
+- Fold 계열과 Flip 계열 제품이 함께 존재하는 경우 Fold 계열이 반드시 Flip 계열보다 먼저 나열되었는가
+- CXP Product Feature가 Section 9 및 11의 허용값만 사용하며 최대 3개이고, 동일 카테고리의 _General과 세부 기능이 함께 출력되지 않았는가
+- AP/Memory 성능 관련 CXP가 정확히 AP/Memory_AP Performance로 작성되었는가
+- Description이 Section 10 및 12의 규칙을 준수하며, 핵심 정보가 불필요하게 일반화·삭제되지 않았는가
+- Description 본문이 정확히 한 문장의 자연스러운 명사형 보고서 문체로 끝나는가
+- Giveaway 또는 구매 혜택이 있는 경우 Section 10.3의 판정 및 리워드 형식을 정확히 적용했는가
+- Publisher Type과 Publisher Country가 Section 4~6의 규칙을 준수하는가
+- SamsungGulf와 Samsung Korea 예외가 필요한 경우 정확히 적용되었는가
 - Subsidiary Code를 생성하지 않았는가
-- 미디어 타입이 unresolved/unknown인 경우 존재하지 않는 미디어 내용을 추측하지 않았는가
-- 근거가 부족한 경우 Requires Manual Review가 true인가
-- Campaign Name이 입력에 구체적인 정보가 있음에도 지나치게 짧거나 일반적인 표현으로 축약되지 않았는가
-- Campaign Name 반환 전 공식 quote·핵심 메시지·구체적 참여 행동을 한 번 재검토했는가
-- 활동형 참여에는 필요 시 Challenge를 사용하고 단순 댓글/좋아요/리트윗에는 Challenge를 사용하지 않았는가
-- 경품 없는 댓글·해시태그 CTA가 핵심인 경우 Description에 "~를 유도한 캠페인" 형태로 반영하고 리워드 줄은 사용하지 않았는가
-- 모든 조건을 만족하는 JSON object만 반환했는가
+- 확인되지 않은 제품, 기능, 인물, 국가, 팔로워 수, 참여 조건 또는 리워드를 생성하지 않았는가
+- 모든 출력 필드에 크리에이터 또는 creator가 포함되지 않았는가
+- 근거가 부족하거나 상충하는 경우 Requires Manual Review가 적절히 true로 설정되었는가
 
-위의 최종 체크리스트에서 하나라도 만족이 안되는 경우 다시 수정 후 모든 체크 리스트가 만족된 경우에만 결과를 반환합니다.
+위 항목 중 하나라도 충족하지 않으면 관련 Section의 규칙을 다시 적용해 수정한 뒤 JSON object를 반환합니다.

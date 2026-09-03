@@ -3,6 +3,7 @@
 # ============================================================
 
 import argparse
+import copy
 import json
 import os
 import re
@@ -20,6 +21,9 @@ from openpyxl import load_workbook, Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 from dotenv import load_dotenv
+
+CODE_VERSION = "20260903_MISSING_HASMORE_HEADINGS_ONLY_V3"
+print(f"[SPRINKLR MISSING EXPORT LOADED] {CODE_VERSION}")
 
 # =========================================================
 # User Guide
@@ -62,6 +66,14 @@ PROJECT_ROOT = BASE_DIR.parent
 
 PAYLOAD_DIR = PROJECT_ROOT / "payload"
 OUTPUT_BASE_DIR = BASE_DIR / "output_누락"
+
+# =========================================================
+# Sprinklr pagination configuration
+# =========================================================
+# payload에 이미 존재하는 "page" 값을 초기값으로 사용하고,
+# response의 hasMore=True이면 page를 1 증가시켜 동일 Widget을
+# 순차적으로 다시 호출한다.
+MAX_PAGES_PER_WIDGET = 1000
 
 WIDGET_CONFIGS = [
     {
@@ -736,6 +748,418 @@ def fetch_sprinklr_data(
         raise
 
     return response.json()
+
+
+# =========================================================
+# 7.1. Sprinklr hasMore pagination
+# =========================================================
+
+def _find_key_paths(
+    obj: object,
+    target_key: str,
+    path: tuple[object, ...] = (),
+) -> list[tuple[object, ...]]:
+    """중첩 dict/list 안에서 target_key의 모든 경로를 찾는다."""
+
+    found_paths: list[tuple[object, ...]] = []
+
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            current_path = path + (key,)
+
+            if key == target_key:
+                found_paths.append(current_path)
+
+            found_paths.extend(
+                _find_key_paths(
+                    value,
+                    target_key,
+                    current_path,
+                )
+            )
+
+    elif isinstance(obj, list):
+        for index, value in enumerate(obj):
+            found_paths.extend(
+                _find_key_paths(
+                    value,
+                    target_key,
+                    path + (index,),
+                )
+            )
+
+    return found_paths
+
+
+def _get_value_at_path(
+    obj: object,
+    path: tuple[object, ...],
+) -> object:
+    """중첩 dict/list에서 지정 경로의 값을 읽는다."""
+
+    current = obj
+
+    for path_part in path:
+        current = current[path_part]
+
+    return current
+
+
+def _set_value_at_path(
+    obj: object,
+    path: tuple[object, ...],
+    value: object,
+) -> None:
+    """중첩 dict/list에서 지정 경로의 값을 변경한다."""
+
+    if not path:
+        raise ValueError(
+            "Cannot set an empty JSON path."
+        )
+
+    current = obj
+
+    for path_part in path[:-1]:
+        current = current[path_part]
+
+    current[path[-1]] = value
+
+
+def resolve_payload_page_path(
+    payload: dict,
+) -> tuple[tuple[object, ...], int]:
+    """
+    payload의 pagination page 위치와 초기값을 반환한다.
+
+    정확성 우선:
+    - page가 없으면 임의 생성하지 않고 중단
+    - page가 여러 개면 자동 추정하지 않고 중단
+    """
+
+    page_paths = _find_key_paths(
+        payload,
+        "page",
+    )
+
+    if len(page_paths) == 0:
+        raise ValueError(
+            "누락 Sprinklr payload에서 'page' key를 찾을 수 없습니다.\n"
+            "실제 API pagination field가 payload에 존재하는지 확인하세요."
+        )
+
+    if len(page_paths) > 1:
+        raise ValueError(
+            "누락 Sprinklr payload에서 'page' key가 여러 개 발견되었습니다.\n"
+            "어느 page가 report pagination field인지 자동 판단하지 않습니다.\n"
+            f"Detected paths: {page_paths}"
+        )
+
+    page_path = page_paths[0]
+    raw_page_value = _get_value_at_path(
+        payload,
+        page_path,
+    )
+
+    if isinstance(raw_page_value, bool):
+        raise ValueError(
+            "누락 Sprinklr payload의 page 값이 boolean입니다.\n"
+            f"path={page_path}, value={raw_page_value!r}"
+        )
+
+    try:
+        page_value = int(raw_page_value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(
+            "누락 Sprinklr payload의 page 값은 정수여야 합니다.\n"
+            f"path={page_path}, value={raw_page_value!r}"
+        ) from exc
+
+    if (
+        isinstance(raw_page_value, float)
+        and not raw_page_value.is_integer()
+    ):
+        raise ValueError(
+            "누락 Sprinklr payload의 page 값이 정수가 아닙니다.\n"
+            f"path={page_path}, value={raw_page_value!r}"
+        )
+
+    return page_path, page_value
+
+
+def _coerce_has_more(
+    value: object,
+    value_path: tuple[object, ...],
+) -> bool:
+    """hasMore 값을 strict boolean으로 정규화한다."""
+
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+
+        if normalized == "true":
+            return True
+
+        if normalized == "false":
+            return False
+
+    if isinstance(value, int) and not isinstance(value, bool):
+        if value == 1:
+            return True
+
+        if value == 0:
+            return False
+
+    raise ValueError(
+        "누락 Sprinklr response의 hasMore 값을 boolean으로 "
+        "해석할 수 없습니다.\n"
+        f"path={value_path}, value={value!r}"
+    )
+
+
+def extract_has_more(
+    response_json: dict,
+) -> tuple[bool, tuple[object, ...]]:
+    """
+    Sprinklr Reports API 응답에서 pagination hasMore를 읽는다.
+
+    확인된 일반 구조:
+        {
+            "data": {
+                "rows": [...],
+                "hasMore": true/false
+            },
+            "errors": []
+        }
+
+    확인된 0건 응답 구조:
+        {
+            "data": {
+                "headings": [...]
+            },
+            "errors": []
+        }
+
+    정책:
+    1. data.hasMore가 있으면 그 값을 사용
+    2. rows/results/values/data 같은 실제 row container가 존재하는데
+       hasMore가 없으면 데이터 누락 위험이 있으므로 FAIL
+    3. data에 headings만 있고 실제 row container가 전혀 없으면
+       "0건의 terminal response"로 판단하여 hasMore=False 처리
+    """
+
+    if not isinstance(response_json, dict):
+        raise ValueError(
+            "Sprinklr response JSON must be a dict. "
+            f"Actual type: {type(response_json)}"
+        )
+
+    data = response_json.get("data")
+
+    if not isinstance(data, dict):
+        raise ValueError(
+            "Sprinklr response['data']가 dict가 아닙니다.\n"
+            f"Top-level keys: {list(response_json.keys())}\n"
+            f"data type: {type(data)}"
+        )
+
+    # -----------------------------------------------------
+    # Normal pagination response
+    # -----------------------------------------------------
+    if "hasMore" in data:
+        path = ("data", "hasMore")
+
+        return (
+            _coerce_has_more(
+                data["hasMore"],
+                path,
+            ),
+            path,
+        )
+
+    # -----------------------------------------------------
+    # Sprinklr zero-row response
+    # data.headings만 있고 실제 row container가 없는 경우
+    # -----------------------------------------------------
+    row_container_keys = (
+        "rows",
+        "results",
+        "values",
+        "data",
+    )
+
+    present_row_container_keys = [
+        key
+        for key in row_container_keys
+        if key in data
+    ]
+
+    headings = data.get("headings")
+
+    if (
+        isinstance(headings, list)
+        and len(present_row_container_keys) == 0
+    ):
+        print(
+            "[PAGINATION TERMINAL EMPTY] "
+            "data.headings only response detected; "
+            "treating as rows=0, hasMore=False."
+        )
+
+        return (
+            False,
+            ("data", "headings_only"),
+        )
+
+    # -----------------------------------------------------
+    # Fail closed:
+    # 실제 row container가 있는데 hasMore가 없으면
+    # 마지막 페이지라고 임의 추정하지 않는다.
+    # -----------------------------------------------------
+    raise ValueError(
+        "Sprinklr response['data']['hasMore']를 찾을 수 없습니다.\n"
+        f"Top-level keys: {list(response_json.keys())}\n"
+        f"data keys: {list(data.keys())}\n"
+        f"row container keys present: {present_row_container_keys}\n"
+        "headings-only 0건 응답은 허용하지만, 실제 row container가 "
+        "존재하는 응답에서 hasMore가 없으면 데이터 누락 방지를 위해 "
+        "실행을 중단합니다."
+    )
+
+
+def get_response_row_count(
+    response_json: dict,
+) -> int:
+    """pagination 로그 검증용 response row 수를 반환한다."""
+
+    rows, _, _ = find_rows_and_headings_in_response(
+        response_json
+    )
+
+    if rows is None:
+        raise ValueError(
+            "Could not find rows in missing Sprinklr response while "
+            "checking pagination row count."
+        )
+
+    return len(rows)
+
+
+def fetch_all_sprinklr_pages(
+    base_url: str,
+    endpoint: str,
+    api_key: str,
+    access_token: str,
+    payload: dict,
+    widget_name: str,
+) -> list[dict[str, object]]:
+    """
+    하나의 누락 Widget에 대해 hasMore=False가 될 때까지
+    Sprinklr API를 순차 호출한다.
+
+    원본 payload의 page 값은 바꾸지 않고,
+    각 요청마다 deepcopy한 payload의 page만 변경한다.
+    """
+
+    page_path, initial_page = resolve_payload_page_path(
+        payload
+    )
+
+    current_page = initial_page
+    page_results: list[dict[str, object]] = []
+
+    for sequence in range(
+        1,
+        MAX_PAGES_PER_WIDGET + 1,
+    ):
+        page_payload = copy.deepcopy(
+            payload
+        )
+
+        _set_value_at_path(
+            page_payload,
+            page_path,
+            current_page,
+        )
+
+        print(
+            "[MISSING PAGINATION] "
+            f"widget={widget_name} "
+            f"sequence={sequence} "
+            f"request_page={current_page} "
+            "calling API..."
+        )
+
+        response_json = fetch_sprinklr_data(
+            base_url=base_url,
+            endpoint=endpoint,
+            api_key=api_key,
+            access_token=access_token,
+            payload=page_payload,
+        )
+
+        response_data = response_json.get("data")
+        print(
+            "[MISSING RESPONSE STRUCTURE] "
+            f"top_keys={list(response_json.keys()) if isinstance(response_json, dict) else None} "
+            f"data_keys={list(response_data.keys()) if isinstance(response_data, dict) else None}"
+        )
+
+        has_more, has_more_path = extract_has_more(
+            response_json
+        )
+
+        row_count = get_response_row_count(
+            response_json
+        )
+
+        print(
+            "[MISSING PAGINATION] "
+            f"widget={widget_name} "
+            f"sequence={sequence} "
+            f"request_page={current_page} "
+            f"rows={row_count} "
+            f"hasMore={has_more} "
+            f"hasMore_path={has_more_path}"
+        )
+
+        page_results.append(
+            {
+                "sequence": sequence,
+                "request_page": current_page,
+                "row_count": row_count,
+                "has_more": has_more,
+                "has_more_path": has_more_path,
+                "response_json": response_json,
+            }
+        )
+
+        if not has_more:
+            total_rows = sum(
+                int(page_result["row_count"])
+                for page_result in page_results
+            )
+
+            print(
+                "[MISSING PAGINATION COMPLETE] "
+                f"widget={widget_name} "
+                f"pages={len(page_results)} "
+                f"raw_rows={total_rows}"
+            )
+
+            return page_results
+
+        current_page += 1
+
+    raise RuntimeError(
+        "누락 Sprinklr pagination이 최대 페이지 수를 초과했습니다.\n"
+        f"Widget: {widget_name}\n"
+        f"Initial page: {initial_page}\n"
+        f"MAX_PAGES_PER_WIDGET: {MAX_PAGES_PER_WIDGET}\n"
+        "hasMore=True가 계속 반환되어 무한 호출 방지를 위해 중단했습니다."
+    )
+
 
 # =========================================================
 # 8. Sprinklr response → DataFrame 변환
@@ -2049,7 +2473,15 @@ def save_response_sample(
     response_json: dict,
     widget_name: str,
     output_dir: str | Path,
-) -> None:
+    page_sequence: int,
+) -> Path:
+    """
+    누락 pagination raw response를 페이지별 JSON으로 저장한다.
+
+    JSON 파일은 합치지 않고 페이지별로 유지한다.
+    최종 통합은 DataFrame 단계에서 pd.concat()으로 수행한다.
+    """
+
     safe_widget_name = (
         widget_name
         .replace(" ", "_")
@@ -2061,10 +2493,18 @@ def save_response_sample(
     path = Path(output_dir)
     path.mkdir(parents=True, exist_ok=True)
 
-    file_path = path / f"{safe_widget_name}_response.json"
+    file_path = path / (
+        f"{safe_widget_name}_page_"
+        f"{page_sequence:03d}_response.json"
+    )
 
     with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(response_json, f, ensure_ascii=False, indent=2)
+        json.dump(
+            response_json,
+            f,
+            ensure_ascii=False,
+            indent=2,
+        )
 
     return file_path
 
@@ -2166,37 +2606,89 @@ def main() -> None:
             )
 
             print(
-                "Calling Sprinklr API..."
+                "Calling Sprinklr API with hasMore pagination..."
             )
-            response_json = fetch_sprinklr_data(
+
+            page_results = fetch_all_sprinklr_pages(
                 base_url=SPRINKLR_BASE_URL,
                 endpoint=ENDPOINT,
                 api_key=API_KEY,
                 access_token=ACCESS_TOKEN,
                 payload=payload,
-            )
-
-            # 응답 sample도 해당 누락 날짜 output 폴더에 함께 관리한다.
-            save_response_sample(
-                response_json=response_json,
                 widget_name=widget_name,
-                output_dir=temporary_response_dir,
             )
 
             target_sheet_name = get_target_sheet_name(
                 widget_name
             )
 
-            print(
-                "Converting response to DataFrame..."
-            )
-            df = make_conversation_stream_dataframe(
-                response_json=response_json,
-                target_sheet_name=target_sheet_name,
+            page_dataframes: list[pd.DataFrame] = []
+
+            for page_result in page_results:
+                page_sequence = int(
+                    page_result["sequence"]
+                )
+
+                response_json = page_result[
+                    "response_json"
+                ]
+
+                response_file_path = save_response_sample(
+                    response_json=response_json,
+                    widget_name=widget_name,
+                    output_dir=temporary_response_dir,
+                    page_sequence=page_sequence,
+                )
+
+                print(
+                    "[MISSING PAGINATION SAVED] "
+                    f"widget={widget_name} "
+                    f"sequence={page_sequence} "
+                    f"file={response_file_path.name}"
+                )
+
+                print(
+                    "Converting response page to DataFrame... "
+                    f"widget={widget_name}, "
+                    f"sequence={page_sequence}"
+                )
+
+                page_df = make_conversation_stream_dataframe(
+                    response_json=response_json,
+                    target_sheet_name=target_sheet_name,
+                )
+
+                page_dataframes.append(
+                    page_df
+                )
+
+            if not page_dataframes:
+                raise RuntimeError(
+                    "누락 Sprinklr pagination 결과가 비어 있습니다.\n"
+                    f"Widget: {widget_name}"
+                )
+
+            df = pd.concat(
+                page_dataframes,
+                ignore_index=True,
+                sort=False,
             )
 
             df = make_dataframe_excel_safe(
                 df
+            )
+
+            expected_raw_rows = sum(
+                int(page_result["row_count"])
+                for page_result in page_results
+            )
+
+            print(
+                "[MISSING PAGINATION MERGED] "
+                f"widget={widget_name} "
+                f"pages={len(page_results)} "
+                f"response_rows={expected_raw_rows} "
+                f"dataframe_rows={len(df)}"
             )
 
             df["source_widget"] = widget_name

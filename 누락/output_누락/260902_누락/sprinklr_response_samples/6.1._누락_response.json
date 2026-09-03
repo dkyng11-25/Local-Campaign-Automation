@@ -1,0 +1,733 @@
+{
+  "data": {
+    "headings": [
+      "ES_MESSAGE_ID_0",
+      "FOLLOWERS_COUNT_1",
+      "M_SPRINKSIGHTS_FOLLOWERS_COUNT_MEASUREMENT_0",
+      "M_SPRINKSIGHTS_COMMENTS_COUNT_1",
+      "M_SPRINKSIGHTS_REPLY_COUNT_2",
+      "M_SPRINKSIGHTS_TWITTER_RETWEETS_3",
+      "M_SPRINKSIGHTS_MENTIONS_COUNT_4"
+    ],
+    "rows": [
+      [
+        {
+          "clientId": 24747,
+          "accountId": 38057,
+          "sourceType": "ACCOUNT",
+          "inboundMessageType": "InboundMessage",
+          "snType": "INSTAGRAM",
+          "snMsgId": "3974410945409759828_437920308",
+          "messageType": 36,
+          "messageSubType": 247,
+          "universalMessageId": "INSTAGRAM_36_3974410945409759828_437920308",
+          "permalink": "https://www.instagram.com/p/Dcn8bKQkrpU/",
+          "message": "La #GalaxyWatchUltra2 pour calculer ton D+ : ✅\nLa #GalaxyWatchUltra2 pour éloigner les red flag : ❌\n\nRed flag = tue l’amour",
+          "hideMessageInUI": false,
+          "senderProfile": {
+            "snType": "INSTAGRAM",
+            "age": 0,
+            "snId": "437920308",
+            "name": "Samsung France",
+            "firstName": "Samsung",
+            "lastName": "France",
+            "screenName": "samsungfrance",
+            "contactInfo": {
+              "fullName": "Samsung France",
+              "website": [
+                "http://linktr.ee/samsungfrance"
+              ]
+            },
+            "bio": "La puissance de l'Ultra, sous une nouvelle forme.\n✨ #GalaxyAI",
+            "subType": "",
+            "following": 180,
+            "followers": 370383,
+            "favCount": 0,
+            "statusCount": 3770,
+            "permalink": "https://www.instagram.com/samsungfrance",
+            "profileUrl": "https://www.instagram.com/samsungfrance",
+            "createdTime": "1705470436147",
+            "profileImgUrl": "https://prod.cdata.app.sprinklr.com/BMK/9993342/8b32c67a-b22c-4cdd-89f5-08caa733ce2d-1962917919/INSTAGRAM-_-437920308.jpg",
+            "verified": false,
+            "unSubscribed": false,
+            "profileWorkflowProperties": {
+              "tags": [],
+              "comments": [],
+              "notifyUserIds": [],
+              "partnerProfileLists": [],
+              "clientProfileLists": [],
+              "partnerCustomProperties": {},
+              "clientCustomProperties": {},
+              "spaceCustomProperties": {},
+              "userCustomProperties": {},
+              "clientTags": []
+            },
+            "universalProfileId": "52e16b3de4b027055e584a46",
+            "participationIndex": 0.0,
+            "influencerIndex": 85.0,
+            "spamIndex": 0.0,
+            "accountsFollowedByUser": [],
+            "accountsFollowingUser": [],
+            "accountsUnFollowingUser": [],
+            "accountsUnFollowedByUser": [],
+            "accountsBlockingUser": [],
+            "accountsSuspendingUser": [],
+            "accountsDeactivatingUser": [],
+            "accountsSilencingUser": [],
+            "profileTags": [],
+            "accountSpecificInfos": [
+              {
+                "accountId": 38057,
+                "lastBrandEngagedTime": 1787935137771,
+                "additional": {}
+              }
+            ],
+            "accountSpecificInfoMap": {
+              "38057": {
+                "accountId": 38057,
+                "lastBrandEngagedTime": 1787935137771,
+                "additional": {}
+              }
+            },
+            "additional": {
+              "benchmarkingId": [
+                "28bb71d0-fd79-11e3-a72a-22000b09866e"
+              ],
+              "dateSync": [
+                "1708870725444"
+              ],
+              "LST_INFLUENCER_SCORE_UPDATED": [
+                "1782993620804"
+              ]
+            },
+            "unMaskedData": {},
+            "restrictedProfile": false,
+            "skipMasking": false,
+            "isPartiallyTokenised": false,
+            "maskedDataPlaceholder": {}
+          },
+          "receiverProfile": {
+            "age": 0,
+            "following": 0,
+            "followers": 0,
+            "favCount": 0,
+            "statusCount": 0,
+            "profileWorkflowProperties": {
+              "tags": [],
+              "comments": [],
+              "notifyUserIds": [],
+              "partnerProfileLists": [],
+              "clientProfileLists": [],
+              "partnerCustomProperties": {},
+              "clientCustomProperties": {},
+              "spaceCustomProperties": {},
+              "userCustomProperties": {},
+              "clientTags": []
+            },
+            "participationIndex": 0.0,
+            "influencerIndex": 0.0,
+            "spamIndex": 0.0,
+            "accountsFollowedByUser": [],
+            "accountsFollowingUser": [],
+            "accountsUnFollowingUser": [],
+            "accountsUnFollowedByUser": [],
+            "accountsBlockingUser": [],
+            "accountsSuspendingUser": [],
+            "accountsDeactivatingUser": [],
+            "accountsSilencingUser": [],
+            "unMaskedData": {},
+            "restrictedProfile": false,
+            "skipMasking": false,
+            "isPartiallyTokenised": false,
+            "maskedDataPlaceholder": {}
+          },
+          "isSenderFollower": false,
+          "snCreatedTime": "Aug 30, 2026, 07:00:01 AM",
+          "snCreatedTimeYearMonth": "2026_08",
+          "snModifiedTime": "Aug 30, 2026, 07:00:01 AM",
+          "mediaList": [
+            {
+              "id": "18101408996245198",
+              "type": "PHOTO",
+              "photoText": "La Galaxy Watch Ultra2 peut suivre ton rythme cardiaque avec précision mais pas encore  deviner pourquoi ton coeur s'emballe  pour quelqu'un qui te laisse en vu. Mesure destinée au bien-étre uniquement",
+              "picture": "https://prod-media-proxy.sprinklr.com/channel/data/media/124/6b86b848-a8c6-4e10-9304-34fcc08384b4.jpg?token=SPRC_V0_UUzzdv8o6Q1m7kiQttTY1KGfbNYoAiQis0zee3S8HkTsdtsq4sipJ38dgECJ%2BI8G6CFem8h9GJNca0Y84vmZT%2BW1B6NLbjvEFXDuGn5h2aWs%2BzsUmdkg96iJCu0pN3Nhu%2FQzF%2BgE%2FJVuKklAToAwMkjSbFoDPARWoVi6dLcvEj7e3o5X0awotGcWW67qpNUbryQiUBdNMFvtAgUZUbZ6LH1SOuGhy5G7J11rFuTzwlNy7N8WvEDbqyjXfEWy%2B%2BsB7KFaZ9J7uUsf5xh9OZ7Itj%2FRDTveGHPMxzfSZk6f3jbGH%2Bt2InpMCap6ZMEpShdvdnGYV%2BeTuswxcFkkqoSnfJJQMyLUfnnVRSYjY7v3GRD82aFVV5SSz4Vi6y2btUNbbnRnQ9DZLs%2Bl7NRHvaEA02Uuu4%2BadP4LtXsahvO7XKUXoZMVnYUZceQpaQhgvYNNWWy5j%2F2km9BcgEkm1VBQEyVT4npHWT8zi15Tq%2FWGMjR6i2J57ai%2FxEUtMVkdxqaJuSNkm20qqDaF6CXWCgRySImc3%2F%2BP2pASS2Crc5x%2F89ZdxOSJW9YKldoLQZVga1R58LWGrev3A9hJHg6SQ9XXTwJP1%2FAZfT%2FlYxwSz86xszAX9sXGjJMyc5luk7fxN6agX6EzPeogbYl2cD84qPgnSDyCx0502RaSUJ8aNdbcRGn2Jj3Kyq%2FTL9TzvpGQRXq2v3cGf2m7DXShVcADJi%2FvZDCeBVlIg2w00LNLrrHFkvzJOq47ei9euSwQPyRbSrQbNHET7RVD9ScZlsh3AxgCYjue%2F68Mkobhsv8GqXJeHWMyPZeUNL0ZmJzLkneJncKSXNtZN6U7oUySPN%2Ftc2hJS9bJ%2BNbdZUM5U9mxbeQVN%2B1CliQV0YFs%2BU%2FOISgiXBRmQWko7NuHFNCvhTQssPUUzvsaUp9L6sYlM7LnCOLss8T04ssgkxy8rXioWv1Ksut8XPmG0QX32WEEjZ3HGaMvQOPz1sQwZ4HdQ3Km32EnffTeTCML3DvxgDo6TYsDw%2Bm3JIzP%2BVv%2FVCrVN8zoQ2qSOIX8rn24VGAVe6631PTBYoQbZsnOIpz2UIqTIXqARFtI",
+              "source": "https://prod-media-proxy.sprinklr.com/channel/data/media/124/2a0a91ae-69cb-4f53-8a9d-df9d00e9e5e0.jpg?token=SPRC_V0_a3DWvwyuH0zJaCgpSqwK7YwwnV1MXsPu4RgHBqEKTYE2a8FKzn7AyqMG0PeXaSTeErBV85xg4iRXTQS%2FajIOP%2FNIY61HcKRW0rLWJOlZjeYjQJ2sky4ZbJFrFaWEGLJh00wMS7xhMAOYp8JCbhkJmoXUiO4TRsO8vdzSdx6XRN5wCrusLKkzXoj1vf0YJB6Y9YbIsbPcq%2BK%2FkHT251qB4%2Fch5pc3WYC3eCGFkqIJ%2BlCNPvQEUIwCPyoroKceCQJVcgXbKFZq2yi3uSLOU9cm8DVY5VwGWPS5iIg2O4e3oKnVYX7P6o0YvKSalotTcZKJkbvz8OILrbUDKzyM2pUi4CAGv2is0sWQStbAlyi9pQGP7HIoig0INRSk4MN5r4L8VsBNFs%2F%2BQQN%2FvDxKQSRKgwksejAJbG8HUU%2BRFeH%2Be8LAkij5qs%2F4L%2BEWH71lhwGyEmD9%2FuPD8wBSAToH4NwXTudIzNSPv1z0%2Bzmuvx1aUN2y5bZmZa5UJd9xkLwFZzIAPUGbTz2yk4QhGpgvUXNx1OCzbKPapg1WcLSLimGj1K30xcBz2I%2BLSSjul5SOe%2BAInpGqqcQ9YgFwh1wIrY4GsVT6p3Ww4SeTdVAuO9z0AEoqP2g%2B9O%2FsLvbDTRLgwd2KAZxF9bPlP65G77kjFs%2FEC%2BP84QVCSnc6dntEYzCoE58IeWpbq9nHHwkB4mElg1CnpFXFz1YMzPTy1PZSwqedFwk7eqdzajyYw4KEZ%2F9oh0%2FALi4FJ6R3cJsC9sKE%2BPt9%2B6Rp3rBwtBJRsRen8fol8YuIJIzTwpEJ0KhdHoAL8kUCWf4RIKMTHSswLCAcLJk%2BdG31gL5DzvzhXTPjO4OhxpL59XXaXQfZSepICLBnU0gxsp%2BilpDhUzC%2FLUitP6PJXrblIgxDConq3RYVrdjUvI7WDZsjwPGnj8wZVbiijve%2B3BweJpP0CA%2FJApge8ZBT7l63vQK6PYhfLJoxujpDy%2BlqwlqmPfhX5oJmOIvToUdnotuqkje2aTMRoHmq3QGVO2DY9XiIyhy%2FQ30yM2%2FRMzRGIheB9VoGu3Q4MEETfXnA6IzDfHR3XorD1rkUEg%2BR",
+              "nsfw": false,
+              "askConsentToRenderImage": false,
+              "additional": {
+                "orgChSrcUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/789748861_18625582015032309_3730605225945590335_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=h7GX7UcQfXEQ7kNvwFYoztR&_nc_oc=AdqTMn2E73-CGsmhBhhOk-O-07gJgeGoIoUZ3QOBFJHzb2A9qeG34vzrvHP4s4AJKp8&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AEQ6tj4EAAAA&_nc_gid=kjey_xkOUQWj3OEVU6VNtQ&oh=00_AQJcM_7NdkuzP5eS4uSn0EKbEOBJAkceURZ0CXOaEZ_uXQ&oe=6A999069",
+                "orgChSrcExt": "jpg",
+                "orgChPicExt": "jpg",
+                "orgChPicUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/789748861_18625582015032309_3730605225945590335_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=h7GX7UcQfXEQ7kNvwFYoztR&_nc_oc=AdqTMn2E73-CGsmhBhhOk-O-07gJgeGoIoUZ3QOBFJHzb2A9qeG34vzrvHP4s4AJKp8&_nc_zt=23&_nc_ht=scontent-iad6-1.cdninstagram.com&edm=AEQ6tj4EAAAA&_nc_gid=kjey_xkOUQWj3OEVU6VNtQ&oh=00_AQJcM_7NdkuzP5eS4uSn0EKbEOBJAkceURZ0CXOaEZ_uXQ&oe=6A999069"
+              },
+              "mediaTags": [
+                {
+                  "cN": "Watch phone",
+                  "cf": 0.2706954,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Watch phone_https://prod-media-proxy.sprinklr.com/channel/data/media/124/6b86b848-a8c6-4e10-9304-34fcc08384b4.jpg?token=SPRC_V0_UUzzdv8o6Q1m7kiQttTY1KGfbNYoAiQis0zee3S8HkTsdtsq4sipJ38dgECJ%2BI8G6CFem8h9GJNca0Y84vmZT%2BW1B6NLbjvEFXDuGn5h2aWs%2BzsUmdkg96iJCu0pN3Nhu%2FQzF%2BgE%2FJVuKklAToAwMkjSbFoDPARWoVi6dLcvEj7e3o5X0awotGcWW67qpNUbryQiUBdNMFvtAgUZUbZ6LH1SOuGhy5G7J11rFuTzwlNy7N8WvEDbqyjXfEWy%2B%2BsB7KFaZ9J7uUsf5xh9OZ7Itj%2FRDTveGHPMxzfSZk6f3jbGH%2Bt2InpMCap6ZMEpShdvdnGYV%2BeTuswxcFkkqoSnfJJQMyLUfnnVRSYjY7v3GRD82aFVV5SSz4Vi6y2btUNbbnRnQ9DZLs%2Bl7NRHvaEA02Uuu4%2BadP4LtXsahvO7XKUXoZMVnYUZceQpaQhgvYNNWWy5j%2F2km9BcgEkm1VBQEyVT4npHWT8zi15Tq%2FWGMjR6i2J57ai%2FxEUtMVkdxqaJuSNkm20qqDaF6CXWCgRySImc3%2F%2BP2pASS2Crc5x%2F89ZdxOSJW9YKldoLQZVga1R58LWGrev3A9hJHg6SQ9XXTwJP1%2FAZfT%2FlYxwSz86xszAX9sXGjJMyc5luk7fxN6agX6EzPeogbYl2cD84qPgnSDyCx0502RaSUJ8aNdbcRGn2Jj3Kyq%2FTL9TzvpGQRXq2v3cGf2m7DXShVcADJi%2FvZDCeBVlIg2w00LNLrrHFkvzJOq47ei9euSwQPyRbSrQbNHET7RVD9ScZlsh3AxgCYjue%2F68Mkobhsv8GqXJeHWMyPZeUNL0ZmJzLkneJncKSXNtZN6U7oUySPN%2Ftc2hJS9bJ%2BNbdZUM5U9mxbeQVN%2B1CliQV0YFs%2BU%2FOISgiXBRmQWko7NuHFNCvhTQssPUUzvsaUp9L6sYlM7LnCOLss8T04ssgkxy8rXioWv1Ksut8XPmG0QX32WEEjZ3HGaMvQOPz1sQwZ4HdQ3Km32EnffTeTCML3DvxgDo6TYsDw%2Bm3JIzP%2BVv%2FVCrVN8zoQ2qSOIX8rn24VGAVe6631PTBYoQbZsnOIpz2UIqTIXqARFtI",
+                    "cN": "Watch phone",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "Watch",
+                  "cf": 0.06562804,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Watch_https://prod-media-proxy.sprinklr.com/channel/data/media/124/6b86b848-a8c6-4e10-9304-34fcc08384b4.jpg?token=SPRC_V0_UUzzdv8o6Q1m7kiQttTY1KGfbNYoAiQis0zee3S8HkTsdtsq4sipJ38dgECJ%2BI8G6CFem8h9GJNca0Y84vmZT%2BW1B6NLbjvEFXDuGn5h2aWs%2BzsUmdkg96iJCu0pN3Nhu%2FQzF%2BgE%2FJVuKklAToAwMkjSbFoDPARWoVi6dLcvEj7e3o5X0awotGcWW67qpNUbryQiUBdNMFvtAgUZUbZ6LH1SOuGhy5G7J11rFuTzwlNy7N8WvEDbqyjXfEWy%2B%2BsB7KFaZ9J7uUsf5xh9OZ7Itj%2FRDTveGHPMxzfSZk6f3jbGH%2Bt2InpMCap6ZMEpShdvdnGYV%2BeTuswxcFkkqoSnfJJQMyLUfnnVRSYjY7v3GRD82aFVV5SSz4Vi6y2btUNbbnRnQ9DZLs%2Bl7NRHvaEA02Uuu4%2BadP4LtXsahvO7XKUXoZMVnYUZceQpaQhgvYNNWWy5j%2F2km9BcgEkm1VBQEyVT4npHWT8zi15Tq%2FWGMjR6i2J57ai%2FxEUtMVkdxqaJuSNkm20qqDaF6CXWCgRySImc3%2F%2BP2pASS2Crc5x%2F89ZdxOSJW9YKldoLQZVga1R58LWGrev3A9hJHg6SQ9XXTwJP1%2FAZfT%2FlYxwSz86xszAX9sXGjJMyc5luk7fxN6agX6EzPeogbYl2cD84qPgnSDyCx0502RaSUJ8aNdbcRGn2Jj3Kyq%2FTL9TzvpGQRXq2v3cGf2m7DXShVcADJi%2FvZDCeBVlIg2w00LNLrrHFkvzJOq47ei9euSwQPyRbSrQbNHET7RVD9ScZlsh3AxgCYjue%2F68Mkobhsv8GqXJeHWMyPZeUNL0ZmJzLkneJncKSXNtZN6U7oUySPN%2Ftc2hJS9bJ%2BNbdZUM5U9mxbeQVN%2B1CliQV0YFs%2BU%2FOISgiXBRmQWko7NuHFNCvhTQssPUUzvsaUp9L6sYlM7LnCOLss8T04ssgkxy8rXioWv1Ksut8XPmG0QX32WEEjZ3HGaMvQOPz1sQwZ4HdQ3Km32EnffTeTCML3DvxgDo6TYsDw%2Bm3JIzP%2BVv%2FVCrVN8zoQ2qSOIX8rn24VGAVe6631PTBYoQbZsnOIpz2UIqTIXqARFtI",
+                    "cN": "Watch",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "SFW",
+                  "cf": 1.0,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_nfr_SFW_https://prod-media-proxy.sprinklr.com/channel/data/media/124/6b86b848-a8c6-4e10-9304-34fcc08384b4.jpg?token=SPRC_V0_UUzzdv8o6Q1m7kiQttTY1KGfbNYoAiQis0zee3S8HkTsdtsq4sipJ38dgECJ%2BI8G6CFem8h9GJNca0Y84vmZT%2BW1B6NLbjvEFXDuGn5h2aWs%2BzsUmdkg96iJCu0pN3Nhu%2FQzF%2BgE%2FJVuKklAToAwMkjSbFoDPARWoVi6dLcvEj7e3o5X0awotGcWW67qpNUbryQiUBdNMFvtAgUZUbZ6LH1SOuGhy5G7J11rFuTzwlNy7N8WvEDbqyjXfEWy%2B%2BsB7KFaZ9J7uUsf5xh9OZ7Itj%2FRDTveGHPMxzfSZk6f3jbGH%2Bt2InpMCap6ZMEpShdvdnGYV%2BeTuswxcFkkqoSnfJJQMyLUfnnVRSYjY7v3GRD82aFVV5SSz4Vi6y2btUNbbnRnQ9DZLs%2Bl7NRHvaEA02Uuu4%2BadP4LtXsahvO7XKUXoZMVnYUZceQpaQhgvYNNWWy5j%2F2km9BcgEkm1VBQEyVT4npHWT8zi15Tq%2FWGMjR6i2J57ai%2FxEUtMVkdxqaJuSNkm20qqDaF6CXWCgRySImc3%2F%2BP2pASS2Crc5x%2F89ZdxOSJW9YKldoLQZVga1R58LWGrev3A9hJHg6SQ9XXTwJP1%2FAZfT%2FlYxwSz86xszAX9sXGjJMyc5luk7fxN6agX6EzPeogbYl2cD84qPgnSDyCx0502RaSUJ8aNdbcRGn2Jj3Kyq%2FTL9TzvpGQRXq2v3cGf2m7DXShVcADJi%2FvZDCeBVlIg2w00LNLrrHFkvzJOq47ei9euSwQPyRbSrQbNHET7RVD9ScZlsh3AxgCYjue%2F68Mkobhsv8GqXJeHWMyPZeUNL0ZmJzLkneJncKSXNtZN6U7oUySPN%2Ftc2hJS9bJ%2BNbdZUM5U9mxbeQVN%2B1CliQV0YFs%2BU%2FOISgiXBRmQWko7NuHFNCvhTQssPUUzvsaUp9L6sYlM7LnCOLss8T04ssgkxy8rXioWv1Ksut8XPmG0QX32WEEjZ3HGaMvQOPz1sQwZ4HdQ3Km32EnffTeTCML3DvxgDo6TYsDw%2Bm3JIzP%2BVv%2FVCrVN8zoQ2qSOIX8rn24VGAVe6631PTBYoQbZsnOIpz2UIqTIXqARFtI",
+                    "cN": "SFW",
+                    "eT": "nfr"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "nfr"
+                }
+              ]
+            }
+          ],
+          "workflowProperties": {
+            "sentiment": 0,
+            "isSpam": false,
+            "isProfane": false,
+            "tags": [],
+            "partnerQueues": [
+              {
+                "queueId": 123973,
+                "queueAssignedTime": 1788076914787
+              },
+              {
+                "queueId": 124125,
+                "queueAssignedTime": 1788076914787
+              },
+              {
+                "queueId": 124126,
+                "queueAssignedTime": 1788076914787
+              }
+            ],
+            "contentLists": [],
+            "partnerCustomProperties": {
+              "_c_63051dd1a24895329698a761": [
+                "Não identificado"
+              ],
+              "_c_659c69335909d8077f34f27c": [
+                "Yes"
+              ],
+              "_c_61938912e74c3e225a4f004b": [
+                "neutral"
+              ],
+              "_c_64c279b078aec56c74495f93": [
+                "low"
+              ],
+              "_c_65ae145c36f7c855e21ad288": [
+                "positive"
+              ],
+              "_c_640a1299d059e87ec6dfc5e4": [
+                "Não Identificado"
+              ],
+              "_c_63051230d7be6b533f95edd8": [
+                "Não identificado"
+              ],
+              "5e989df6f22e1271104372b6": [
+                "Yes"
+              ],
+              "_c_672de470042f577dac246654": [
+                "NA"
+              ],
+              "_c_60139ac10d7d5d0e374f9131": [
+                "Brand (Retro)"
+              ],
+              "5e0e4078e25ce366c0e94ac2": [
+                "C480"
+              ],
+              "_c_6825ca9b8478332d30f63bbc": [
+                "Yes"
+              ],
+              "_c_62de9a1db894e62ff074d3df": [
+                "Not Identified"
+              ],
+              "5ed8e11b29e7b968654fe36e": [
+                "Less Than 4 Weeks",
+                "Less Than 3 Weeks",
+                "Less Than 2 Weeks",
+                "Less Than 1 Week"
+              ],
+              "5de864a97c30ea309500d477": [
+                "SEF"
+              ],
+              "5e8a1a05eb08e97c21331604": [
+                "INSTAGRAM-:-36-:-3974410945409759828_437920308-:-ACCOUNT-:-38057-:-1788073201000-:-2026_08"
+              ],
+              "5e3353db5e9b5c7489454e38": [
+                "Other"
+              ]
+            },
+            "processingUserDetailsList": [],
+            "read": false
+          },
+          "parentMsgType": 0,
+          "deleted": false,
+          "archived": false,
+          "brandPost": false,
+          "parentBrandPost": false,
+          "hasBrandComment": false,
+          "hasBrandResponded": false,
+          "hasScheduledComment": false,
+          "hasParentPost": true,
+          "hasApplicationConversation": false,
+          "isStoryMessage": false,
+          "textEdited": false,
+          "isEditedVersion": false,
+          "hasConversation": false,
+          "messageMasked": false,
+          "messageReadByUser": false,
+          "hasChildren": false,
+          "tagInReplyToMessage": false,
+          "isPinnedOnCase": false,
+          "userActions": [],
+          "detectedSurveyMessage": false,
+          "videoChatEnabled": false,
+          "unMaskedData": {},
+          "sentToAdvocacy": false,
+          "advocacyPostInApproval": false,
+          "chatGPTActionsDisabled": false,
+          "maskedDataPlaceholder": {}
+        },
+        "100k-500k",
+        370235.0,
+        12.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        {
+          "clientId": 24747,
+          "accountId": 38057,
+          "sourceType": "ACCOUNT",
+          "inboundMessageType": "InboundMessage",
+          "snType": "INSTAGRAM",
+          "snMsgId": "3974583079763292703_437920308",
+          "messageType": 36,
+          "messageSubType": 2129,
+          "universalMessageId": "INSTAGRAM_36_3974583079763292703_437920308",
+          "permalink": "https://www.instagram.com/reel/DcojkC3kbIf/",
+          "message": "Un moment tout confort avec le nouveau format du #GalaxyZFold8",
+          "hideMessageInUI": false,
+          "senderProfile": {
+            "snType": "INSTAGRAM",
+            "age": 0,
+            "snId": "437920308",
+            "name": "Samsung France",
+            "firstName": "Samsung",
+            "lastName": "France",
+            "screenName": "samsungfrance",
+            "contactInfo": {
+              "fullName": "Samsung France",
+              "website": [
+                "http://linktr.ee/samsungfrance"
+              ]
+            },
+            "bio": "La puissance de l'Ultra, sous une nouvelle forme.\n✨ #GalaxyAI",
+            "subType": "",
+            "following": 180,
+            "followers": 370383,
+            "favCount": 0,
+            "statusCount": 3770,
+            "permalink": "https://www.instagram.com/samsungfrance",
+            "profileUrl": "https://www.instagram.com/samsungfrance",
+            "createdTime": "1705470436147",
+            "profileImgUrl": "https://prod.cdata.app.sprinklr.com/BMK/9993342/8b32c67a-b22c-4cdd-89f5-08caa733ce2d-1962917919/INSTAGRAM-_-437920308.jpg",
+            "verified": false,
+            "unSubscribed": false,
+            "profileWorkflowProperties": {
+              "tags": [],
+              "comments": [],
+              "notifyUserIds": [],
+              "partnerProfileLists": [],
+              "clientProfileLists": [],
+              "partnerCustomProperties": {},
+              "clientCustomProperties": {},
+              "spaceCustomProperties": {},
+              "userCustomProperties": {},
+              "clientTags": []
+            },
+            "universalProfileId": "52e16b3de4b027055e584a46",
+            "participationIndex": 0.0,
+            "influencerIndex": 85.0,
+            "spamIndex": 0.0,
+            "accountsFollowedByUser": [],
+            "accountsFollowingUser": [],
+            "accountsUnFollowingUser": [],
+            "accountsUnFollowedByUser": [],
+            "accountsBlockingUser": [],
+            "accountsSuspendingUser": [],
+            "accountsDeactivatingUser": [],
+            "accountsSilencingUser": [],
+            "profileTags": [],
+            "accountSpecificInfos": [
+              {
+                "accountId": 38057,
+                "lastBrandEngagedTime": 1787935137771,
+                "additional": {}
+              }
+            ],
+            "accountSpecificInfoMap": {
+              "38057": {
+                "accountId": 38057,
+                "lastBrandEngagedTime": 1787935137771,
+                "additional": {}
+              }
+            },
+            "additional": {
+              "benchmarkingId": [
+                "28bb71d0-fd79-11e3-a72a-22000b09866e"
+              ],
+              "dateSync": [
+                "1708870725444"
+              ],
+              "LST_INFLUENCER_SCORE_UPDATED": [
+                "1782993620804"
+              ]
+            },
+            "unMaskedData": {},
+            "restrictedProfile": false,
+            "skipMasking": false,
+            "isPartiallyTokenised": false,
+            "maskedDataPlaceholder": {}
+          },
+          "receiverProfile": {
+            "age": 0,
+            "following": 0,
+            "followers": 0,
+            "favCount": 0,
+            "statusCount": 0,
+            "profileWorkflowProperties": {
+              "tags": [],
+              "comments": [],
+              "notifyUserIds": [],
+              "partnerProfileLists": [],
+              "clientProfileLists": [],
+              "partnerCustomProperties": {},
+              "clientCustomProperties": {},
+              "spaceCustomProperties": {},
+              "userCustomProperties": {},
+              "clientTags": []
+            },
+            "participationIndex": 0.0,
+            "influencerIndex": 0.0,
+            "spamIndex": 0.0,
+            "accountsFollowedByUser": [],
+            "accountsFollowingUser": [],
+            "accountsUnFollowingUser": [],
+            "accountsUnFollowedByUser": [],
+            "accountsBlockingUser": [],
+            "accountsSuspendingUser": [],
+            "accountsDeactivatingUser": [],
+            "accountsSilencingUser": [],
+            "unMaskedData": {},
+            "restrictedProfile": false,
+            "skipMasking": false,
+            "isPartiallyTokenised": false,
+            "maskedDataPlaceholder": {}
+          },
+          "isSenderFollower": false,
+          "snCreatedTime": "Aug 30, 2026, 12:00:03 PM",
+          "snCreatedTimeYearMonth": "2026_08",
+          "snModifiedTime": "Aug 30, 2026, 12:00:03 PM",
+          "mediaList": [
+            {
+              "id": "17899355757579300",
+              "type": "VIDEO",
+              "picture": "https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+              "source": "https://prod-media-proxy.sprinklr.com/channel/data/media/124/e69471ab-8671-4605-a8a3-03932564096f.mp4?token=SPRC_V0_OokustW4xqpnQ4SWP4WMNuVBD4jSTxOT%2By9XWqmpOAMUAvnvMaS60H0qWtESo2vyjU%2F4%2F0QceSu66tcGy1ZrmYtTC2nr2qES%2FnoG6aFurF8Q8GSrhxP8KBa02KsjUOSZUuk7VlAH1o1t4serhcc%2FdzfUKL47piLrecV9qy2Q7MglqWzHDVdv0bHV66Apaa790OzGlTzdfE5cATE56JlivtpVu%2F40Ky3nxpTWT588mcK89PPYGjJ35Ub6F15KevUZI718PlLCwqV%2Fx%2FpPMXJFAGvgspuFciZQt1lUCQnAY8cDaIPBZPGeujYK8uLoR9yrET7bUjDE85wVmU8tezV3z3svuW9EaPDuGmPc6BOg8shANEPPi1dzDT4YH4V8Vs2GQ0NYuZlHZ%2BwIjhLTs56w2HFKv%2Bg4RsFl0svosLLdIs%2B7%2Futeby6P3Bl%2FXiy5cgF%2F91CuuUsSU%2Bcs2pd%2FTVD1T0rnOWh4R0FdFqVymug9NdO%2BNH1fm0SLYHjt713g3q0gyRel9sBGrd7o%2FYAl2Oz%2FOMtQMj2B0BRQNsly0gfSn3DWKN0MdWmONLpiEt9fQgbFsQTJ8PL6Qf1naJLrBH1B8%2F6EbX3xGGmrS79NL%2B4MkGetVFD41yChtCH9iUcYNsNIWhlZD%2BD06e53WAGTZe2WqM63QjLZV4liOTvciun7XnfOOUB2iGA83jH%2BfSWB%2FE1VzL%2B3XSmdJeWCdax%2FJNV4vKH3pew4TBcMWavAgnSRTPAAmHfNliJcMcRa9Hhdz19lfQP4crkaIMXmEJtHl27ad8Mg1z8OL3DKbtuOt6%2FXDMqFzzaRMoqCqhfTU1Dv9WCxNi534aPGH5zymLroyr5Pgh3Zh%2BYxQ1l6VApsAQ%2FIBddR7%2BuTaXJj6yQgkkNTsD4YMh82cpKffyrNofSDzdvswUICo1N6RgAfhu%2Bho4fAlfYlG%2F5cruy6AWfEtCI4l1vq%2BSrH%2B7YNnVbkXgc81SiLNd7eU7g7OrSmlbaxBH9sy%2BhjCLhSJ9qZeOrN4VrkUx6Qlsrs0uwfRRCUiJc8UOpDPZw3vUv%2Bv0Y6wMRs2PzGc8TCU0BEmLFHHntG4VxWPV8T9zjLKlXF6MGc25B4MUORbcAl3n8tgJlwJFEvGJ13zXLVGxpCZVSFHFwSBNAjVZmo%2BGalTeWy594tuBlhcrg6H%2BKt0yOLhjNN7EE5gaypqf1D9MUp%2BGSep81106NCq8YCgIDCRYgL2ORU5ckD%2F1shaSf6wHaYFWgAQ489JU%2F8ZdU0i5x4Zr8ZoHHH1BlISFKrfBixc301XlRS5xFGQRWQ0qMDyLs04xlfnTuOqfkDYRkC5agXOBKPv3BLuanJ6ljecpaC%2B1a8gtL4jL9o%2FYPD3sKILwzGaPLllMH1p4e4oCgeVJnLZQk%2FY3UJFAqcsXXG3LJ9PX6mJRtF6Zx6aGmjX5xOcjycCwETQgbCeJAtGxv5zKX5uUP%2BYBBodAe5Y4UtGPQQYp%2FLCTA4nAorhL74cTXiN7BHSqUOMHORWadiXJ5HeDZVLwHXCUUXUZ2TjG7nLIirhT6QA%2BepkvyAH2MptltZw3K5HSbOJE2wzVo1G6DIJhao%2B2R%2BoyiXc%2BbZFCGNaMyVCO6dd080glTVbW7V3nS%2FZKpSRD%2FMOgDqGh5DJ09mefDnhukB4onGhDSkpKornUmPgYrR4DcQk44qmwxXmvB1Km%2BMGAjnrABcEFt7AC7NLQ5zWYVUnFMd6t4ptamXZ9fQevC2j%2FU0ZMXkGVsQKfk7r42beg7OBpAaR4hBBXf3VhJotQI1IVOmBLi7nZtoI9MFuwG2yuI42bhOxNHRYckHMXXK1X0j379O2SsAAl0%3D",
+              "nsfw": false,
+              "askConsentToRenderImage": false,
+              "additional": {
+                "orgChSrcUrl": "https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m86/AQMkgnXZNCBmIM0UxUlSIpEyqfHwbTLjuTyFwSRORkQV02UTEG4unj-ScBUiHLDP1Of-lv3Zy7CKFj475XHO1S6yLSGRiyktrM3TFk4.mp4?_nc_cat=104&_nc_sid=5e9851&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ohc=OIa5MvH4mN8Q7kNvwH8l1pN&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTg2MjU2NzAzMjYwMzIzMDksImFzc2V0X2FnZV9kYXlzIjowLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6MTEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=e2d64714b116c62&_nc_vs=HBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC80MzRDREYxQkZGMDYyQjEyMUM4QjY2RjVBNDQ1MTlBOF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0E3NDYwNDIzNTMyMjdDQTM5MDIzQkQ4NTJEMzJFNUFCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbq3uT32fyVQhUCKAJDMywXQCYnbItDlYEYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA&_nc_gid=Jkl3bsWBBB1qrDNpmXDASw&edm=AEQ6tj4EAAAA&_nc_zt=28&oh=00_AQLRF9s7U2eADRzvxA96vVdojs5hd-xdcd_PxszxwmDKYA&oe=6A95F305",
+                "orgChSrcExt": "mp4",
+                "orgChPicExt": "jpg",
+                "orgChPicUrl": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/788779035_18625919581032309_1276065087183863795_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=MlrBjKyBG7YQ7kNvwGinubS&_nc_oc=AdoWVW2e3NPPdqVB9441hyhagByi-H_PjloaTacAdo4WV50Yqp1k1AZuiG-U_u_r2Zs&_nc_zt=23&_nc_ht=scontent-iad3-2.cdninstagram.com&edm=AEQ6tj4EAAAA&_nc_gid=Jkl3bsWBBB1qrDNpmXDASw&_nc_tpa=Q5bMBQI8sM5e5_iXEGRxGfa_Rwqz0CFlJbDkmgDYPmpQS2Q4HiA8LqAu9NQHpswYNJoFrkATz2Fd&oh=00_AQJTTJWpaG-wRYtl89xWO8TyS3Wuf3mOZlP9s0wFbcQCJQ&oe=6A9A029E"
+              },
+              "mediaTags": [
+                {
+                  "cN": "Advertising",
+                  "cf": 0.026506346,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Advertising_https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+                    "cN": "Advertising",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "Poster",
+                  "cf": 0.01208007,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Poster_https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+                    "cN": "Poster",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "Phone",
+                  "cf": 0.007608545,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Phone_https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+                    "cN": "Phone",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "Screen",
+                  "cf": 0.014222993,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_gn_Screen_https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+                    "cN": "Screen",
+                    "eT": "gn"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "gn"
+                },
+                {
+                  "cN": "SFW",
+                  "cf": 1.0,
+                  "xn": 0.0,
+                  "yn": 0.0,
+                  "xx": 0.0,
+                  "yx": 0.0,
+                  "oIW": "",
+                  "oIH": "",
+                  "possibleActions": [
+                    "INCORRECT",
+                    "EDIT_CLASS",
+                    "GROUND_TRUTH"
+                  ],
+                  "add": {
+                    "bb": "0_0_0_0",
+                    "uId": "0_0_0_0_nfr_SFW_https://prod-media-proxy.sprinklr.com/channel/data/media/124/41dbf26f-f97c-4662-ae0a-3adc11738482.jpg?token=SPRC_V0_J3qsyO4BDlSLAKgbfn0%2Ff6QmODbmJcTsmfSpO4HYDQq4Avp6rMAPy8TbPS32xMHhaaM5Ao4XBUgdxYgENR3oYIdpyv9ZQMcltxPqIMyEQ4mdzeAbDTVVxHE9viuVBunZnSfDFJFgD1AqPqF7c0%2F%2FvE9pDYsZNS2Bq%2BNKbxnpPk97ku7sLn4rpc8Iolp%2BBmhxh5Q6ZhnCoec5vXtJqdnvDMRCk1MrRBkUkx0fwEaEz0BBUCfximxWwhYQZ9ivmRAOOqKDh0Q9KElZHcx8mX6uO%2BpZlZkGXeqLb85Gp6tatpbqk9PJgngvgwmT2M14qnjGleAtosdumCYZCUHmzdTKEqS%2BT7OtcOZnUFJwpswIXo4XRMph8PqsCTVz%2FN3Hqz0XFY31799rFkLrn%2Bb8RYtzzpMOwaMjLSWjd%2Fjtm%2FABHUiAsSgpmExBzNUFHo8YkZXs42ZIc9Zg8fkk0vLlDxTdchi8Ocu%2B2YAfOqJcQzpMwkRPGfqDAkH%2FMelir1JfYJP9H7xK4cymag2jdPQymGUvYaC1FV9fYNxa%2BGzeZUkLCeDUf%2Bk28lIn%2FM2hoMbqa%2Fxkd%2FBFN%2FMk72JLOSceq14JVfnCqhxMFeCdsyE7LTJZAeDihF76K6qUpu8NvAQOaPV0wTY%2BKAJC%2FxcvAj4PuNY6GKcruEi88o95Z%2BRR0edl7X69NgLz6JrCIblNujCu0%2Bh694hOl1KTVH8NFOFVBHGMjZ8rPFtsniVHHN2owjiq2B2hwWPbnyDYkmj9j20nfckAub8NrtDlqDaOYQlImxS5XhpFX3LzM6gAhIJHIWMtILeUtTHLo0rWB7uo06lQLT3ATnDKZ3G8BrcVAJn1eBk52JzpduNHy3MVgYLwbX01S5hvNSNuWwh6fguCroGnQmiAjS4SkDVCKlZXBFC6QPd3Lv0bQZUSsDdIC9gBs6LQQz9J1JUxzSr7UH86pLj0HMETqv4Zhf8zrz3G0uZjdSeu1NZ6%2FC3%2FO%2B1BdfLefCt7n%2BY%2F0MnM816gRESHrlvauudGlkTpOZSe%2Fhr6TaCLw43ipSi5qBLsontcpFNFmouqnSpUw37zLZABRhBiiRev9DDxmvcKlV38%2FBdIyXQLj%2FE1qqXV4hnL8g1v2TEpWRBZUK3HFjexLf%2B7zkdCgen0Q0FE6%2BmjAx8nDSUn4XGUGWFiUKxe%2Fue2JVFMUDsA9SbDFS4JxNra0q2JuaO1X4EFwQPt",
+                    "cN": "SFW",
+                    "eT": "nfr"
+                  },
+                  "bboxId": "0_0_0_0",
+                  "eT": "nfr"
+                }
+              ]
+            }
+          ],
+          "workflowProperties": {
+            "sentiment": 2,
+            "isSpam": false,
+            "isProfane": false,
+            "tags": [],
+            "partnerQueues": [
+              {
+                "queueId": 123973,
+                "queueAssignedTime": 1788220864980
+              },
+              {
+                "queueId": 124125,
+                "queueAssignedTime": 1788220864980
+              },
+              {
+                "queueId": 124126,
+                "queueAssignedTime": 1788220864980
+              }
+            ],
+            "contentLists": [],
+            "partnerCustomProperties": {
+              "_c_63051dd1a24895329698a761": [
+                "Não identificado"
+              ],
+              "_c_659c69335909d8077f34f27c": [
+                "Yes"
+              ],
+              "_c_61938912e74c3e225a4f004b": [
+                "positive"
+              ],
+              "_c_65ae145c36f7c855e21ad288": [
+                "positive"
+              ],
+              "_c_640a1299d059e87ec6dfc5e4": [
+                "Não Identificado"
+              ],
+              "_c_63051230d7be6b533f95edd8": [
+                "Não identificado"
+              ],
+              "5e989df6f22e1271104372b6": [
+                "Yes"
+              ],
+              "_c_672de470042f577dac246654": [
+                "NA"
+              ],
+              "_c_60139ac10d7d5d0e374f9131": [
+                "Brand (Retro)"
+              ],
+              "5e0e4078e25ce366c0e94ac2": [
+                "C480"
+              ],
+              "_c_6825ca9b8478332d30f63bbc": [
+                "No"
+              ],
+              "_c_62de9a1db894e62ff074d3df": [
+                "Not Identified"
+              ],
+              "5ed8e11b29e7b968654fe36e": [
+                "Less Than 4 Weeks",
+                "Less Than 3 Weeks",
+                "Less Than 2 Weeks",
+                "Less Than 1 Week"
+              ],
+              "5de864a97c30ea309500d477": [
+                "SEF"
+              ],
+              "5e8a1a05eb08e97c21331604": [
+                "INSTAGRAM-:-36-:-3974583079763292703_437920308-:-ACCOUNT-:-38057-:-1788091203000-:-2026_08"
+              ],
+              "5e3353db5e9b5c7489454e38": [
+                "Other"
+              ]
+            },
+            "processingUserDetailsList": [],
+            "read": false
+          },
+          "parentMsgType": 0,
+          "deleted": false,
+          "archived": false,
+          "brandPost": false,
+          "parentBrandPost": false,
+          "hasBrandComment": false,
+          "hasBrandResponded": false,
+          "hasScheduledComment": false,
+          "hasParentPost": true,
+          "hasApplicationConversation": false,
+          "isStoryMessage": false,
+          "textEdited": false,
+          "isEditedVersion": false,
+          "hasConversation": false,
+          "messageMasked": false,
+          "messageReadByUser": false,
+          "hasChildren": false,
+          "tagInReplyToMessage": false,
+          "isPinnedOnCase": false,
+          "userActions": [],
+          "detectedSurveyMessage": false,
+          "videoChatEnabled": false,
+          "unMaskedData": {},
+          "sentToAdvocacy": false,
+          "advocacyPostInApproval": false,
+          "chatGPTActionsDisabled": false,
+          "maskedDataPlaceholder": {}
+        },
+        "100k-500k",
+        370235.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "hasMore": false
+  },
+  "errors": []
+}

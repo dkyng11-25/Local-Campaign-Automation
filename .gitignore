@@ -1,0 +1,30 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Browser profiles / local session data
+.fb_browser_profile/
+.tiktok_edge_profile/
+.tiktok_browser_profile/
+.x_browser_profile/
+.x_edge_browser_profile/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated data
+output/
+media/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

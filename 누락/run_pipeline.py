@@ -114,11 +114,17 @@ def main() -> None:
     start_datetime = parse_datetime(
         datetime_text=start_datetime_text,
         input_name="시작 날짜와 시간",
+    ).replace(
+        second=0,
+        microsecond=0,
     )
 
     end_datetime = parse_datetime(
         datetime_text=end_datetime_text,
         input_name="종료 날짜와 시간",
+    ).replace(
+        second=59,
+        microsecond=0,
     )
 
     if end_datetime <= start_datetime:

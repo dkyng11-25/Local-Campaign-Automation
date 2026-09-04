@@ -2,8 +2,8 @@
   "report": "SPRINKSIGHTS",
   "reportingEngine": "LISTENING",
   "timeField": null,
-  "startTime": 1787298540000,
-  "endTime": 1788335340000,
+  "startTime": 1788343680000,
+  "endTime": 1788430080000,
   "timeZone": "Asia/Seoul",
   "page": 0,
   "pageSize": 50,
@@ -12,7 +12,7 @@
       "dimensionName": "QUERY",
       "filterType": "IN",
       "values": [
-        "engagingWithGuid: 2092862170614599736 OR engagingWithGuid: 2092907473929670677  OR inUrl: DcojkC3kbIf OR inUrl: Dcn8bKQkrpU"
+        "engagingWithGuid: 2095406439904776294"
       ],
       "details": {
         "displayNameForWarning": "Keyword Query",

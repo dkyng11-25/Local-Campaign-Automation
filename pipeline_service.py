@@ -434,7 +434,19 @@ def normalize_pipeline_datetimes(
     start_datetime: datetime | str,
     end_datetime: datetime | str,
 ) -> tuple[datetime, datetime, str, str]:
-    """CLI와 Web UI가 공통으로 사용할 날짜/시간 정규화."""
+    """
+    CLI와 Web UI가 공통으로 사용할 날짜/시간 정규화.
+
+    UI는 분 단위까지만 선택하므로 실제 파이프라인 조회 범위는
+    다음 규칙으로 통일한다.
+
+    - 시작 시각: 선택한 시/분 유지 + 초=00
+    - 종료 시각: 선택한 시/분 유지 + 초=59
+
+    예:
+        2026-09-03 15:34:00 -> 2026-09-03 15:34:00
+        2026-09-03 18:34:00 -> 2026-09-03 18:34:59
+    """
 
     if isinstance(
         start_datetime,
@@ -471,6 +483,17 @@ def normalize_pipeline_datetimes(
         raise TypeError(
             "end_datetime은 datetime 또는 문자열이어야 합니다."
         )
+
+    # UI의 시/분 선택값은 그대로 유지하고 초만 정규화한다.
+    start_datetime_obj = start_datetime_obj.replace(
+        second=0,
+        microsecond=0,
+    )
+
+    end_datetime_obj = end_datetime_obj.replace(
+        second=59,
+        microsecond=0,
+    )
 
     if end_datetime_obj <= start_datetime_obj:
         raise ValueError(

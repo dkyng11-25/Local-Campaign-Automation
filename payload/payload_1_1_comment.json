@@ -2,8 +2,8 @@
   "report": "SPRINKSIGHTS",
   "reportingEngine": "LISTENING",
   "timeField": null,
-  "startTime": 1788417240000,
-  "endTime": 1788428040000,
+  "startTime": 1787497200000,
+  "endTime": 1788087600000,
   "timeZone": "Asia/Seoul",
   "page": 0,
   "pageSize": 50,
@@ -139,7 +139,7 @@
       "dimensionName": "M_SPRINKSIGHTS_COMMENTS_COUNT_1",
       "filterType": "GT",
       "values": [
-        400
+        500
       ],
       "details": {
         "displayNameForWarning": "Comments Count",
